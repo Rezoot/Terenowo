@@ -19,6 +19,24 @@ public class Gra extends Okno {
 
 
                 glowne();
+
+
+/*
+                JScrollPane scrollPane = new JScrollPane();
+
+                scrollPane.addMouseWheelListener(new MouseWheelListener() {
+                        public void mouseWheelMoved(MouseWheelEvent e) {
+                                int notches = e.getWheelRotation();
+                                JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
+                                int scrollValue = verticalScrollBar.getValue();
+                                int scrollAmount = verticalScrollBar.getUnitIncrement(notches);
+                                verticalScrollBar.setValue(scrollValue + scrollAmount * notches);
+                                System.out.println(e.getWheelRotation());
+                        }
+
+                });
+*/
+
                 addMouseListener(new MouseAdapter(){
                         @Override
                         public void mousePressed(MouseEvent e) {
@@ -69,11 +87,16 @@ public class Gra extends Okno {
 
                         @Override
                         public void mouseReleased(MouseEvent e) {
-                                if(e.getButton()==MouseEvent.BUTTON1){
-                                        mouse=false;
-
+                                if(e.getButton()==MouseEvent.BUTTON1) {
+                                        mouse = false;
                                 }
 
+                        }
+
+                        @Override
+                        public void mouseWheelMoved(MouseWheelEvent e) {
+                                super.mouseWheelMoved(e);
+                                System.out.println("DASDA");
                         }
                 });
 

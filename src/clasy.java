@@ -8,9 +8,12 @@ abstract class Okno extends JFrame{
     int szerokoscokna=1280,wysokoscokna=1024;
     Okno(){
     setName("terenowo");
+    setTitle("terenowo");
     setSize(szerokoscokna,wysokoscokna );
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
     setLayout(null);
+
     map = new ImageIcon("map.png");
 
 
