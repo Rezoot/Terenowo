@@ -6,12 +6,14 @@ import java.awt.*;
 abstract class Okno extends JFrame{
     ImageIcon map;
     int szerokoscokna=1280,wysokoscokna=1024;
+
     Okno(){
     setName("terenowo");
     setTitle("terenowo");
     setSize(szerokoscokna,wysokoscokna );
-    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+    //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setUndecorated(true);
+    setLocationRelativeTo(null);
     setLayout(null);
 
     map = new ImageIcon("map.png");
