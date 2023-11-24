@@ -6,7 +6,8 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-        Gra apk = new Gra();
-        apk.setVisible(true);
+        Menu apk = new Menu();
+
+
     }
 }

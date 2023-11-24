@@ -77,8 +77,6 @@ class Zdjecie extends JFrame{
 
 
 
-class Menu extends Okno{
 
-}
 
 

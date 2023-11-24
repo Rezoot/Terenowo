@@ -6,7 +6,6 @@ import java.awt.event.*;
 
 public class Gra extends Okno {
 
-
         boolean mouse,mapkakliknieta=false;
         ImageIcon zdj;
         int x ,y;
