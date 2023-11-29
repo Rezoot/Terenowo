@@ -45,7 +45,7 @@ public class Gra extends Okno {
                                         new Thread() {
                                                 public void run(){
                                                         int x1,x2,y1,y2;
-                                                        int buforx,bufory;
+
 
                                                         while(mouse){
                                                                 x1=getMousePosition().x;
