@@ -6,22 +6,50 @@ import java.awt.*;
 abstract class Okno extends JFrame{
     ImageIcon map;
     int szerokoscokna=1280,wysokoscokna=1024;
+    JButton zamknij = new JButton(){
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.setColor(Color.BLACK);
+
+            int[] xPoints = {0, 40, 40, 0}; // Współrzędne x dla trójkąta
+            int[] yPoints = {15, 15, 25, 25 }; // Współrzędne y dla trójkąta
+            g.fillPolygon(xPoints, yPoints, 4);
+
+            int[] xPoints2 = {35, 35, 65}; // Współrzędne x dla trójkąta
+            int[] yPoints2 = {0, 40,20 }; // Współrzędne y dla trójkąta
+            g.fillPolygon(xPoints2, yPoints2, 3);
+        }
+    };
+
 
     Okno(){
+
     setName("terenowo");
     setTitle("terenowo");
-    setSize(szerokoscokna,wysokoscokna );
-    //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setUndecorated(true);
     setLocationRelativeTo(null);
+    setSize(szerokoscokna,wysokoscokna );
     setLayout(null);
 
-    map = new ImageIcon("map.png");
+
+    zamknij.setPreferredSize(new Dimension(65, 40));
+    zamknij.setOpaque(false);
+    zamknij.setContentAreaFilled(false);
+    zamknij.setBorderPainted(false);
+
+
+    //map = new ImageIcon("map.png");
+
+
+    }
+
+
 
 
 
 }
-}
+
 
 class Czas{
     int min,sek;
@@ -35,7 +63,7 @@ class Czas{
             public void run() {
                 try {
 
-                    int x,y;
+                    //int x,y;
                     while(min>0 || sek>0) {
                         m = String.valueOf(min);s = String.valueOf(sek);
                         if (sek<10){s="0"+s;}

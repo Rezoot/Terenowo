@@ -99,7 +99,7 @@ public class Gra extends Okno {
                         }
                 });
 
-
+                setVisible(true);
         }
 
         void glowne() {
@@ -107,6 +107,13 @@ public class Gra extends Okno {
                 fotka();
                 x=-zdj.getIconWidth()/2;
                 y=-zdj.getIconHeight()/2;
+
+                JPanel top = new JPanel();
+                JPanel Bottom = new JPanel();
+                JPanel full = new JPanel();
+
+                labelki();
+
 
                 glowne_zjecie = new JLabel(); //JLabel Creation
                 glowne_zjecieprzed = new JLabel(); //JLabel Creation
@@ -120,7 +127,9 @@ public class Gra extends Okno {
                 glowne_zjecie.setBounds(x,y,size.width,size.height);
                 glowne_zjecieprzed.setBounds(x+size.width,y,size.width,size.height);
                 glowne_zjeciepo.setBounds(x-size.width,y,size.width,size.height);
-                labelki();
+
+
+
 
                 add(glowne_zjecie);
                 add(glowne_zjecieprzed);
