@@ -15,7 +15,7 @@ public class Menu extends Okno{
         pulpit.setLocationRelativeTo(null);
         pulpit.setUndecorated(true);
         pulpit.setLayout(new BoxLayout(pulpit.getContentPane(), BoxLayout.Y_AXIS));
-
+        pulpit.setLocationRelativeTo(null);
 
 
         pierwszy_zamkniecia();

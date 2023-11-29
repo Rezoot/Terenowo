@@ -20,21 +20,7 @@ public class Gra extends Okno {
                 glowne();
 
 
-/*
-                JScrollPane scrollPane = new JScrollPane();
 
-                scrollPane.addMouseWheelListener(new MouseWheelListener() {
-                        public void mouseWheelMoved(MouseWheelEvent e) {
-                                int notches = e.getWheelRotation();
-                                JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
-                                int scrollValue = verticalScrollBar.getValue();
-                                int scrollAmount = verticalScrollBar.getUnitIncrement(notches);
-                                verticalScrollBar.setValue(scrollValue + scrollAmount * notches);
-                                System.out.println(e.getWheelRotation());
-                        }
-
-                });
-*/
 
                 addMouseListener(new MouseAdapter(){
                         @Override
@@ -108,9 +94,6 @@ public class Gra extends Okno {
                 x=-zdj.getIconWidth()/2;
                 y=-zdj.getIconHeight()/2;
 
-                JPanel top = new JPanel();
-                JPanel Bottom = new JPanel();
-                JPanel full = new JPanel();
 
                 labelki();
 
@@ -118,6 +101,14 @@ public class Gra extends Okno {
                 glowne_zjecie = new JLabel(); //JLabel Creation
                 glowne_zjecieprzed = new JLabel(); //JLabel Creation
                 glowne_zjeciepo = new JLabel(); //JLabel Creation
+
+                addMouseWheelListener(new MouseWheelListener() {
+                        @Override
+                        public void mouseWheelMoved(MouseWheelEvent e) {
+                                int notches = e.getWheelRotation();
+                                System.out.println(notches);
+                        }
+                });
 
                 glowne_zjecie.setIcon(zdj);
                 glowne_zjecieprzed.setIcon(zdj);

@@ -28,7 +28,7 @@ abstract class Okno extends JFrame{
     setName("terenowo");
     setTitle("terenowo");
     setUndecorated(true);
-    setLocationRelativeTo(null);
+
     setSize(szerokoscokna,wysokoscokna );
     setLayout(null);
 
@@ -39,7 +39,7 @@ abstract class Okno extends JFrame{
     zamknij.setBorderPainted(false);
 
 
-    //map = new ImageIcon("map.png");
+    map = new ImageIcon("map.png");
 
 
     }
