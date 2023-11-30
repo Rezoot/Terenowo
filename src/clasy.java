@@ -12,13 +12,13 @@ abstract class Okno extends JFrame{
             super.paintComponent(g);
             g.setColor(Color.BLACK);
 
-            int[] xPoints = {0, 40, 40, 0}; // Współrzędne x dla trójkąta
-            int[] yPoints = {15, 15, 25, 25 }; // Współrzędne y dla trójkąta
+            int[] xPoints = {0, 15, 45, 30}; // Współrzędne x dla trójkąta
+            int[] yPoints = {30, 30, 0, 0 }; // Współrzędne y dla trójkąta
             g.fillPolygon(xPoints, yPoints, 4);
 
-            int[] xPoints2 = {35, 35, 65}; // Współrzędne x dla trójkąta
-            int[] yPoints2 = {0, 40,20 }; // Współrzędne y dla trójkąta
-            g.fillPolygon(xPoints2, yPoints2, 3);
+            int[] xPoints2 = {30, 45, 15,0}; // Współrzędne x dla trójkąta
+            int[] yPoints2 = {30, 30,0,0 }; // Współrzędne y dla trójkąta
+            g.fillPolygon(xPoints2, yPoints2, 4);
         }
     };
 
@@ -33,7 +33,7 @@ abstract class Okno extends JFrame{
     setLayout(null);
 
 
-    zamknij.setPreferredSize(new Dimension(65, 40));
+    zamknij.setPreferredSize(new Dimension(55, 30));
     zamknij.setOpaque(false);
     zamknij.setContentAreaFilled(false);
     zamknij.setBorderPainted(false);
@@ -54,22 +54,24 @@ abstract class Okno extends JFrame{
 class Czas{
     int min,sek;
     String m,s,tek;
-
+    boolean apk=true;
     Czas(int t, JLabel tekst) {
-        min=t;
-        sek=0;
-        new Thread() {
+        min = t/60;
+        if (t==60) sek=0;
+        else sek=30;
+
+         new Thread() {
             @Override
             public void run() {
                 try {
 
                     //int x,y;
-                    while(min>0 || sek>0) {
+                    while((min>0 || sek>0) && apk) {
                         m = String.valueOf(min);s = String.valueOf(sek);
                         if (sek<10){s="0"+s;}
                         tek = m+":"+s;
                         tekst.setText(tek);
-                        if (sek==0 && min!=0)
+                        if (sek<=0 && min!=0)
                         {
                         sek=60;
                         min-=1;
@@ -86,6 +88,11 @@ class Czas{
 
             }
         }.start();
+    }
+    void zamknij()
+    {
+        apk=false;
+
     }
 }
 

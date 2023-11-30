@@ -8,14 +8,15 @@ public class Gra extends Okno {
 
         boolean mouse,mapkakliknieta=false;
         ImageIcon zdj;
-        int x ,y;
+        int x ,y,t;
 
         JLabel glowne_zjecie,glowne_zjecieprzed,glowne_zjeciepo;
         JPanel wybormiejs;
         Dimension size;
 
-        Gra(){
+        Gra(int time){
 
+                t=time;
 
                 glowne();
 
@@ -132,17 +133,36 @@ public class Gra extends Okno {
 
         void labelki(){
 
-                JLabel odliczanie = new JLabel();
+                JPanel gora = new JPanel();
+                gora.setBounds(0,0,szerokoscokna,50);
+                add(gora);
+                gora.setOpaque(false);
 
+                JLabel odliczanie = new JLabel();
                 odliczanie.setFont(new Font("Arial", Font.PLAIN, 30));
-                odliczanie.setBounds(szerokoscokna/2,-0,65,30);
                 odliczanie.setOpaque(true);
                 odliczanie.setBackground(Color.BLACK);
                 odliczanie.setForeground(Color.WHITE);
                 odliczanie.setBorder(new LineBorder(Color.BLACK, 2));
-                add(odliczanie);
-                Czas czas = new Czas(5,odliczanie);
 
+                gora.add(odliczanie);
+
+
+                Czas czas = new Czas(t,odliczanie);
+
+                JPanel goraprawo =new JPanel();
+                goraprawo.setBounds(0,10,szerokoscokna,50);
+                add(goraprawo);
+                goraprawo.setOpaque(false);
+                goraprawo.setLayout(new BorderLayout());
+                goraprawo.add(zamknij,BorderLayout.EAST);
+                zamknij.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                                dispose(); czas.zamknij();
+
+                        }
+                });
 
                 przyciski();
 

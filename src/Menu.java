@@ -7,9 +7,10 @@ import java.awt.event.*;
 public class Menu extends Okno{
 
     JFrame pulpit;
-    String color="#f5d0ef";
-    String color_napis="#5c555b";
+    String color="#f5d0ef",color_napis="#5c555b";
     JPanel fasolka;
+    JLabel tek;
+    int time=90;
     Menu()
     {
 
@@ -67,6 +68,7 @@ public class Menu extends Okno{
         JPanel prawy = new JPanel();
         prawy.setLayout(new BorderLayout());
         prawy.setOpaque(false);
+
         pierwszy.add(prawy,BorderLayout.EAST);
 
         prawy.add(zamknij,BorderLayout.SOUTH);
@@ -106,7 +108,7 @@ public class Menu extends Okno{
 
         JPanel czas = new JPanel();
         czas.setOpaque(false);
-        JLabel tek = new JLabel("1:00");
+        tek = new JLabel("1:30");
         tek.setForeground(Color.decode(color_napis));
         czas.add(tek);
 
@@ -115,7 +117,25 @@ public class Menu extends Okno{
         JButton graj = new JButton("START");
         guzik.add(graj);
 
+        JPanel wyb = jradiobutony();
 
+
+        center.add(Box.createVerticalStrut(10));
+        center.add(tyt);
+        center.add(Box.createVerticalStrut(30));
+        center.add(czas);
+        center.add(Box.createVerticalStrut(30));
+        center.add(guzik);
+        center.add(Box.createVerticalStrut(30));
+        center.add(wyb);
+
+        graj.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+            Gra glowna = new Gra(time);
+
+        }});
+
+    }
+    JPanel jradiobutony(){
 
         JPanel wyb = new JPanel();
         wyb.setOpaque(false);
@@ -138,24 +158,24 @@ public class Menu extends Okno{
         cz.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                tek.setText("0:30");
+                tek.setText("0:30"); time=30;
             }
         });
         cz2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                tek.setText("1:00");
+                tek.setText("1:00"); time=60;
             }
         });
         cz3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                tek.setText("1:30");
+                tek.setText("1:30"); time=90;
             }
         });
 
 
-        cz2.setSelected(true);
+        cz3.setSelected(true);
 
         cz.setOpaque(false);
         cz2.setOpaque(false);
@@ -171,30 +191,15 @@ public class Menu extends Okno{
         wyb.add(nap1);
         wyb.add(nap2);
         wyb.add(nap3);
-
-
-
-        center.add(Box.createVerticalStrut(10));
-        center.add(tyt);
-        center.add(Box.createVerticalStrut(30));
-        center.add(czas);
-        center.add(Box.createVerticalStrut(30));
-        center.add(guzik);
-        center.add(Box.createVerticalStrut(30));
-        center.add(wyb);
+        return wyb;
 
 
 
 
 
-
-
-
-        graj.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
-            Gra glowna = new Gra();
-
-        }});
 
     }
+
+
 }
 
