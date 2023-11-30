@@ -121,10 +121,10 @@ public class Gra extends Okno {
 
 
 
-
                 add(glowne_zjecie);
                 add(glowne_zjecieprzed);
                 add(glowne_zjeciepo);
+
 
 
 
