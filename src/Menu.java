@@ -1,8 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-//import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.*;
 
 public class Menu extends Okno{
 
@@ -72,9 +70,7 @@ public class Menu extends Okno{
         pierwszy.add(prawy,BorderLayout.EAST);
 
         prawy.add(zamknij,BorderLayout.SOUTH);
-        zamknij.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
-            pulpit.dispose();
-        }});
+        zamknij.addActionListener(e -> pulpit.dispose());
 
 
 
@@ -129,10 +125,7 @@ public class Menu extends Okno{
         center.add(Box.createVerticalStrut(30));
         center.add(wyb);
 
-        graj.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
-            Gra glowna = new Gra(time);
-
-        }});
+        graj.addActionListener(e -> {Gra glowna = new Gra(time);});
 
     }
     JPanel jradiobutony(){
@@ -155,24 +148,9 @@ public class Menu extends Okno{
         JRadioButton cz2 = new JRadioButton();
         JRadioButton cz3 = new JRadioButton();
 
-        cz.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tek.setText("0:30"); time=30;
-            }
-        });
-        cz2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tek.setText("1:00"); time=60;
-            }
-        });
-        cz3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                tek.setText("1:30"); time=90;
-            }
-        });
+        cz.addActionListener(e -> {tek.setText("0:30"); time=30;});
+        cz2.addActionListener(e -> {tek.setText("1:00"); time=60;});
+        cz3.addActionListener(e -> {tek.setText("1:30"); time=90;});
 
 
         cz3.setSelected(true);

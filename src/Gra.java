@@ -29,44 +29,41 @@ public class Gra extends Okno {
                                 if (e.getButton()==MouseEvent.BUTTON1){
                                         mouse=true;
 
-                                        new Thread() {
-                                                public void run(){
-                                                        int x1,x2,y1,y2;
+                                        new Thread(() -> {
+                                                int x1,x2,y1,y2;
 
 
-                                                        while(mouse){
-                                                                x1=getMousePosition().x;
-                                                                y1=getMousePosition().y;
-                                                                x2=getMousePosition().x;
-                                                                y2=getMousePosition().y;
+                                                while(mouse){
+                                                        x1=getMousePosition().x;
+                                                        y1=getMousePosition().y;
+                                                        x2=getMousePosition().x;
+                                                        y2=getMousePosition().y;
 
-                                                                x+=(x2-x1)*5;
-                                                                y+=(y2-y1)*5;
+                                                        x+=(x2-x1)*5;
+                                                        y+=(y2-y1)*5;
 
-                                                                if(y>=0){
-                                                                        y=0;
-                                                                } else if (y<=-size.height+wysokoscokna) {
-                                                                        y=-size.height+wysokoscokna;
-
-                                                                }
-
-
-
-                                                                if (x<-size.width-szerokoscokna/2){
-                                                                        x=x+size.width;
-                                                                } else if (x>szerokoscokna/2) {
-                                                                        x=x-size.width;
-                                                                }
-                                                                glowne_zjecie.setBounds(x,y,size.width, size.height);
-                                                                glowne_zjecieprzed.setBounds(x+size.width,y,size.width, size.height);
-                                                                glowne_zjeciepo.setBounds(x-size.width,y,size.width, size.height);
-
-
+                                                        if(y>=0){
+                                                                y=0;
+                                                        } else if (y<=-size.height+wysokoscokna) {
+                                                                y=-size.height+wysokoscokna;
 
                                                         }
-                                                }
 
-                                        }.start();
+
+
+                                                        if (x<-size.width-szerokoscokna/2){
+                                                                x=x+size.width;
+                                                        } else if (x>szerokoscokna/2) {
+                                                                x=x-size.width;
+                                                        }
+                                                        glowne_zjecie.setBounds(x,y,size.width, size.height);
+                                                        glowne_zjecieprzed.setBounds(x+size.width,y,size.width, size.height);
+                                                        glowne_zjeciepo.setBounds(x-size.width,y,size.width, size.height);
+
+
+
+                                                }
+                                        }).start();
                                 }
 
                         }
@@ -103,12 +100,9 @@ public class Gra extends Okno {
                 glowne_zjecieprzed = new JLabel(); //JLabel Creation
                 glowne_zjeciepo = new JLabel(); //JLabel Creation
 
-                addMouseWheelListener(new MouseWheelListener() {
-                        @Override
-                        public void mouseWheelMoved(MouseWheelEvent e) {
-                                int notches = e.getWheelRotation();
-                                System.out.println(notches);
-                        }
+                addMouseWheelListener(e -> {
+                        int notches = e.getWheelRotation();
+                        System.out.println(notches);
                 });
 
                 glowne_zjecie.setIcon(zdj);
@@ -156,13 +150,7 @@ public class Gra extends Okno {
                 goraprawo.setOpaque(false);
                 goraprawo.setLayout(new BorderLayout());
                 goraprawo.add(zamknij,BorderLayout.EAST);
-                zamknij.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                                dispose(); czas.zamknij();
-
-                        }
-                });
+                zamknij.addActionListener(e -> {dispose(); czas.zamknij();});
 
                 przyciski();
 
@@ -202,22 +190,22 @@ public class Gra extends Okno {
 
 
 
-                przycisk.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+                przycisk.addActionListener(e -> {
                         mapkakliknieta=!mapkakliknieta;
                         wybormiejs.setVisible(mapkakliknieta);
-                }});
-                Gdansk.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+                });
+                Gdansk.addActionListener(e -> {
                         mapkakliknieta=!mapkakliknieta;
                         wybormiejs.setVisible(mapkakliknieta);
-                }});
-                Gdynia.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+                });
+                Gdynia.addActionListener(e -> {
                         mapkakliknieta=!mapkakliknieta;
                         wybormiejs.setVisible(mapkakliknieta);
-                }});
-                Sopot.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e) {
+                });
+                Sopot.addActionListener(e -> {
                         mapkakliknieta=!mapkakliknieta;
                         wybormiejs.setVisible(mapkakliknieta);
-                }});
+                });
 
 
 

@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 
-
 abstract class Okno extends JFrame{
     ImageIcon map;
     int szerokoscokna=1280,wysokoscokna=1024;
@@ -57,37 +56,34 @@ class Czas{
     boolean apk=true;
     Czas(int t, JLabel tekst) {
         min = t/60;
-        if (t==60) sek=0;
-        else sek=30;
+        if (t==60){sek=0;}
+        else{sek=30;}
 
-         new Thread() {
-            @Override
-            public void run() {
-                try {
+         new Thread(() -> {
+             try {
 
-                    //int x,y;
-                    while((min>0 || sek>0) && apk) {
-                        m = String.valueOf(min);s = String.valueOf(sek);
-                        if (sek<10){s="0"+s;}
-                        tek = m+":"+s;
-                        tekst.setText(tek);
-                        if (sek<=0 && min!=0)
-                        {
-                        sek=60;
-                        min-=1;
-                        }
-                        sek-=1;
-                        Thread.sleep(1000);
+                 //int x,y;
+                 while((min>0 || sek>0) && apk) {
+                     m = String.valueOf(min);s = String.valueOf(sek);
+                     if (sek<10){s= "0" + s;}
+                     tek = m+":"+s;
+                     tekst.setText(tek);
+                     if (sek<=0 && min!=0)
+                     {
+                     sek=60;
+                     min-=1;
+                     }
+                     sek-=1;
+                     Thread.sleep(1000);
 
 
 
-                    }
-                }catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+                 }
+             }catch (InterruptedException e) {
+                 Thread.currentThread().interrupt();
+             }
 
-            }
-        }.start();
+         }).start();
     }
     void zamknij()
     {
