@@ -8,7 +8,7 @@ public class Gra extends Okno {
 
         boolean mouse,mapkakliknieta=true;
         ImageIcon zdj;
-        int x ,y,t;
+        int x ,y ,t;
 
         JLabel glowne_zjecie,glowne_zjecieprzed,glowne_zjeciepo;
         JPanel wybormiejs;
@@ -16,75 +16,17 @@ public class Gra extends Okno {
 
         Gra(int time){
 
-                t=time;
 
+                t=time;
+                pulpit.setLayout(null);
                 glowne();
 
 
 
-
-                addMouseListener(new MouseAdapter(){
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                                if (e.getButton()==MouseEvent.BUTTON1){
-                                        mouse=true;
-
-                                        new Thread(() -> {
-                                                int x1,x2,y1,y2;
+                przesuwanie();
 
 
-                                                while(mouse){
-                                                        x1=getMousePosition().x;
-                                                        y1=getMousePosition().y;
-                                                        x2=getMousePosition().x;
-                                                        y2=getMousePosition().y;
-
-                                                        x+=(x2-x1)*5;
-                                                        y+=(y2-y1)*5;
-
-                                                        if(y>=0){
-                                                                y=0;
-                                                        } else if (y<=-size.height+wysokoscokna) {
-                                                                y=-size.height+wysokoscokna;
-
-                                                        }
-
-
-
-                                                        if (x<-size.width-szerokoscokna/2){
-                                                                x=x+size.width;
-                                                        } else if (x>szerokoscokna/2) {
-                                                                x=x-size.width;
-                                                        }
-                                                        glowne_zjecie.setBounds(x,y,size.width, size.height);
-                                                        glowne_zjecieprzed.setBounds(x+size.width,y,size.width, size.height);
-                                                        glowne_zjeciepo.setBounds(x-size.width,y,size.width, size.height);
-
-
-
-                                                }
-                                        }).start();
-                                }
-
-                        }
-
-                        @Override
-                        public void mouseReleased(MouseEvent e) {
-                                if(e.getButton()==MouseEvent.BUTTON1) {
-                                        mouse = false;
-                                }
-
-                        }
-
-                });
-
-                addMouseWheelListener(e -> {
-                        int notches = e.getWheelRotation();
-                        System.out.println(notches);
-                });
-
-
-                setVisible(true);
+                pulpit.setVisible(true);
         }
 
         void glowne() {
@@ -114,9 +56,9 @@ public class Gra extends Okno {
 
 
 
-                add(glowne_zjecie);
-                add(glowne_zjecieprzed);
-                add(glowne_zjeciepo);
+                pulpit.add(glowne_zjecie);
+                pulpit.add(glowne_zjecieprzed);
+                pulpit.add(glowne_zjeciepo);
 
 
 
@@ -127,7 +69,7 @@ public class Gra extends Okno {
 
                 JPanel gora = new JPanel();
                 gora.setBounds(0,0,szerokoscokna,50);
-                add(gora);
+                pulpit.add(gora);
                 gora.setOpaque(false);
 
                 JLabel odliczanie = new JLabel();
@@ -140,15 +82,16 @@ public class Gra extends Okno {
                 gora.add(odliczanie);
 
 
-                Czas czas = new Czas(t,odliczanie);
+                Czas czas = new Czas(t,odliczanie,pulpit);
 
                 JPanel goraprawo =new JPanel();
                 goraprawo.setBounds(0,10,szerokoscokna,50);
-                add(goraprawo);
+                pulpit.add(goraprawo);
                 goraprawo.setOpaque(false);
                 goraprawo.setLayout(new BorderLayout());
                 goraprawo.add(zamknij,BorderLayout.EAST);
-                zamknij.addActionListener(e -> {dispose(); czas.zamknij();new Menu();});
+                zamknij.addActionListener(e -> {czas.zamknij();new Menu();});
+
 
                 przyciski();
 
@@ -162,7 +105,7 @@ public class Gra extends Okno {
                 JPanel cale = new JPanel();
                 cale.setBounds(0,0,szerokoscokna,wysokoscokna);
                 cale.setOpaque(false);
-                add(cale);
+                pulpit.add(cale);
                 cale.setLayout(new BorderLayout());
 
 
@@ -233,14 +176,66 @@ public class Gra extends Okno {
         }
         void fotka(){
 
+                map = new ImageIcon("map.png");
                 Zdjecie zdjecie = new Zdjecie();
-
                 zdj=zdjecie.zdjecie;
 
 
         }
 
+        void przesuwanie()
+        {
+                pulpit.addMouseListener(new MouseAdapter(){
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                                if (e.getButton()==MouseEvent.BUTTON1){
+                                        mouse=true;
+                                        new Thread(() -> {
+                                                int x1,x2,y1,y2;
+                                                while(mouse){
+                                                        x1=pulpit.getMousePosition().x;
+                                                        y1=pulpit.getMousePosition().y;
+                                                        x2=pulpit.getMousePosition().x;
+                                                        y2=pulpit.getMousePosition().y;
 
+                                                        x+=(x2-x1)*5;
+                                                        y+=(y2-y1)*5;
+
+                                                        if(y>=0){
+                                                                y=0;
+                                                        } else if (y<=-size.height+wysokoscokna) {
+                                                                y=-size.height+wysokoscokna;
+
+                                                        }
+
+                                                        if (x<-size.width-szerokoscokna/2){
+                                                                x=x+size.width;
+                                                        } else if (x>szerokoscokna/2) {
+                                                                x=x-size.width;
+                                                        }
+                                                        glowne_zjecie.setBounds(x,y,size.width, size.height);
+                                                        glowne_zjecieprzed.setBounds(x+size.width,y,size.width, size.height);
+                                                        glowne_zjeciepo.setBounds(x-size.width,y,size.width, size.height);
+
+                                                }
+                                        }).start();
+                                }
+                        }
+                        @Override
+                        public void mouseReleased(MouseEvent e) {
+                                if(e.getButton()==MouseEvent.BUTTON1) {
+                                        mouse = false;
+                                }
+                        }
+                });
+
+                pulpit.addMouseWheelListener(e -> {
+                        int notches = e.getWheelRotation();
+                        System.out.println(notches);
+                });
+
+
+        }
 
 
 }
