@@ -110,9 +110,10 @@ public class Menu extends Okno{
 
         JPanel guzik =new JPanel();
         guzik.setOpaque(false);
-        ImageIcon start = new ImageIcon("start.png");
-        JButton graj = new JButton(start);
+        JButton graj = new JButton("START");
+        graj.setFont(new Font("Arial", Font.BOLD, 20));
         graj.setContentAreaFilled(false);
+        graj.setBorderPainted(false);
         guzik.add(graj);
 
 

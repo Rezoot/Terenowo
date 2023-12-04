@@ -183,7 +183,7 @@ public class Gra extends Okno {
 
 
 
-                /*
+
                 JButton przycisk = new JButton();
                 przycisk.setIcon(map);
 
@@ -192,7 +192,7 @@ public class Gra extends Okno {
                 przycisk.setContentAreaFilled(false);
                 przycisk.setBorderPainted(false);
                 dol.add(przycisk,BorderLayout.EAST);
-                */
+
 
 
 
@@ -210,11 +210,11 @@ public class Gra extends Okno {
 
 
 
-                /*przycisk.addActionListener(e -> {
+                przycisk.addActionListener(e -> {
                         mapkakliknieta=!mapkakliknieta;
                         wybormiejs.setVisible(mapkakliknieta);
                 });
-                 */
+
                 Gdansk.addActionListener(e -> {
                         mapkakliknieta=!mapkakliknieta;
                         wybormiejs.setVisible(mapkakliknieta);
