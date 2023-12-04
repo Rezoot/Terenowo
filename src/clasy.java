@@ -95,7 +95,7 @@ class Czas{
 }
 
 class Zdjecie extends JFrame{
-    ImageIcon zdjecie,map;
+    ImageIcon zdjecie;
 
     Zdjecie(){
         try {
