@@ -110,11 +110,13 @@ public class Menu extends Okno{
 
         JPanel guzik =new JPanel();
         guzik.setOpaque(false);
-        JButton graj = new JButton("START");
+        ImageIcon start = new ImageIcon("start.png");
+        JButton graj = new JButton(start);
+        graj.setContentAreaFilled(false);
         guzik.add(graj);
 
-        JPanel wyb = jradiobutony();
 
+        JPanel wyb = jradiobutony();
 
         center.add(Box.createVerticalStrut(10));
         center.add(tyt);
@@ -125,7 +127,7 @@ public class Menu extends Okno{
         center.add(Box.createVerticalStrut(30));
         center.add(wyb);
 
-        graj.addActionListener(e -> {Gra glowna = new Gra(time);});
+        graj.addActionListener(e -> {new Gra(time);pulpit.dispose();});
 
     }
     JPanel jradiobutony(){
