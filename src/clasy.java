@@ -4,7 +4,7 @@ import java.awt.*;
 
 abstract class Okno extends JFrame{
     JFrame pulpit;
-    ImageIcon map;
+
     int szerokoscokna=1280,wysokoscokna=1024;
     JButton zamknij = new JButton(){
         @Override
