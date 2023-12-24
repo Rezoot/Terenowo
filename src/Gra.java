@@ -3,12 +3,11 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-
 public class Gra extends Okno {
 
         boolean mouse,mapkakliknieta=false;
-        ImageIcon zdj;
-        int x ,y,t;
+        ImageIcon zdj, map;
+        int x ,y ,t;
 
         JLabel glowne_zjecie,glowne_zjecieprzed,glowne_zjeciepo;
         JPanel wybormiejs;
@@ -16,74 +15,17 @@ public class Gra extends Okno {
 
         Gra(int time){
 
-                t=time;
 
+                t=time;
+                pulpit.setLayout(null);
                 glowne();
 
 
 
-
-                addMouseListener(new MouseAdapter(){
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                                if (e.getButton()==MouseEvent.BUTTON1){
-                                        mouse=true;
-
-                                        new Thread(() -> {
-                                                int x1,x2,y1,y2;
+                przesuwanie();
 
 
-                                                while(mouse){
-                                                        x1=getMousePosition().x;
-                                                        y1=getMousePosition().y;
-                                                        x2=getMousePosition().x;
-                                                        y2=getMousePosition().y;
-
-                                                        x+=(x2-x1)*5;
-                                                        y+=(y2-y1)*5;
-
-                                                        if(y>=0){
-                                                                y=0;
-                                                        } else if (y<=-size.height+wysokoscokna) {
-                                                                y=-size.height+wysokoscokna;
-
-                                                        }
-
-
-
-                                                        if (x<-size.width-szerokoscokna/2){
-                                                                x=x+size.width;
-                                                        } else if (x>szerokoscokna/2) {
-                                                                x=x-size.width;
-                                                        }
-                                                        glowne_zjecie.setBounds(x,y,size.width, size.height);
-                                                        glowne_zjecieprzed.setBounds(x+size.width,y,size.width, size.height);
-                                                        glowne_zjeciepo.setBounds(x-size.width,y,size.width, size.height);
-
-
-
-                                                }
-                                        }).start();
-                                }
-
-                        }
-
-                        @Override
-                        public void mouseReleased(MouseEvent e) {
-                                if(e.getButton()==MouseEvent.BUTTON1) {
-                                        mouse = false;
-                                }
-
-                        }
-
-                        @Override
-                        public void mouseWheelMoved(MouseWheelEvent e) {
-                                super.mouseWheelMoved(e);
-                                System.out.println("DASDA");
-                        }
-                });
-
-                setVisible(true);
+                pulpit.setVisible(true);
         }
 
         void glowne() {
@@ -100,10 +42,7 @@ public class Gra extends Okno {
                 glowne_zjecieprzed = new JLabel(); //JLabel Creation
                 glowne_zjeciepo = new JLabel(); //JLabel Creation
 
-                addMouseWheelListener(e -> {
-                        int notches = e.getWheelRotation();
-                        System.out.println(notches);
-                });
+
 
                 glowne_zjecie.setIcon(zdj);
                 glowne_zjecieprzed.setIcon(zdj);
@@ -116,9 +55,9 @@ public class Gra extends Okno {
 
 
 
-                add(glowne_zjecie);
-                add(glowne_zjecieprzed);
-                add(glowne_zjeciepo);
+                pulpit.add(glowne_zjecie);
+                pulpit.add(glowne_zjecieprzed);
+                pulpit.add(glowne_zjeciepo);
 
 
 
@@ -129,7 +68,7 @@ public class Gra extends Okno {
 
                 JPanel gora = new JPanel();
                 gora.setBounds(0,0,szerokoscokna,50);
-                add(gora);
+                pulpit.add(gora);
                 gora.setOpaque(false);
 
                 JLabel odliczanie = new JLabel();
@@ -142,15 +81,16 @@ public class Gra extends Okno {
                 gora.add(odliczanie);
 
 
-                Czas czas = new Czas(t,odliczanie);
+                Czas czas = new Czas(t,odliczanie,pulpit);
 
                 JPanel goraprawo =new JPanel();
                 goraprawo.setBounds(0,10,szerokoscokna,50);
-                add(goraprawo);
+                pulpit.add(goraprawo);
                 goraprawo.setOpaque(false);
                 goraprawo.setLayout(new BorderLayout());
                 goraprawo.add(zamknij,BorderLayout.EAST);
-                zamknij.addActionListener(e -> {dispose(); czas.zamknij();});
+                zamknij.addActionListener(e -> {czas.zamknij();new Menu();});
+
 
                 przyciski();
 
@@ -160,40 +100,78 @@ public class Gra extends Okno {
 
         }
         void przyciski(){
+
+                JPanel cale = new JPanel();
+                cale.setBounds(0,0,szerokoscokna,wysokoscokna);
+                cale.setOpaque(false);
+                pulpit.add(cale);
+                cale.setLayout(new BorderLayout());
+
+
+                JPanel dol = new JPanel();
+                dol.setOpaque(false);
+                cale.add(dol,BorderLayout.SOUTH);
+                dol.setLayout(new BorderLayout());
+                
+
+                JPanel dol1 = new JPanel();
+                dol1.setOpaque(false);
+                dol.add(dol1,BorderLayout.CENTER);
+                dol1.setLayout(new BorderLayout());
+
+                JPanel dol2 = new JPanel();
+                dol2.setOpaque(false);
+                dol.add(dol2,BorderLayout.SOUTH);
+                dol2.setLayout(new BorderLayout());
+
+                wybormiejs = new JPanel();
+                wybormiejs.setPreferredSize(new Dimension(500,450));
+
+                wybormiejs.setVisible(mapkakliknieta);
+                //wybormiejs.setOpaque(false);
+
+                dol1.add(wybormiejs,BorderLayout.EAST);
+
+
+
+                JPanel prawo = new JPanel();
+                dol2.add(prawo,BorderLayout.EAST);
+                prawo.setLayout(new BorderLayout());
+                prawo.setOpaque(false);
+
+
                 JButton przycisk = new JButton();
                 przycisk.setIcon(map);
-                add(przycisk);
-                przycisk.setBounds(1210,720,map.getIconWidth(), map.getIconHeight());
                 przycisk.setOpaque(false);
                 przycisk.setContentAreaFilled(false);
                 przycisk.setBorderPainted(false);
 
 
-
-                wybormiejs = new JPanel();
-                //wybormiejs.setBounds(szerokoscokna-310,wysokoscokna-500,300,300);
-                wybormiejs.setBounds(szerokoscokna-310,wysokoscokna-300,260,100);
-                wybormiejs.setVisible(mapkakliknieta);
-                wybormiejs.setOpaque(false);
-
-
-
-                add(wybormiejs);
+                JPanel przyciski = new JPanel();
+                przyciski.setLayout(new FlowLayout(FlowLayout.LEFT));
+                przyciski.setOpaque(false);
+                przyciski.setVisible(mapkakliknieta);
 
                 JButton Gdynia = new JButton("Gdynia");
                 JButton Sopot = new JButton("Sopot");
                 JButton Gdansk = new JButton("Gdańsk");
 
-                wybormiejs.add(Gdynia);
-                wybormiejs.add(Sopot);
-                wybormiejs.add(Gdansk);
+
+                przyciski.add(Gdynia);
+                przyciski.add(Sopot);
+                przyciski.add(Gdansk);
+                prawo.add(przyciski,BorderLayout.WEST);
+                prawo.add(przycisk,BorderLayout.CENTER);
+
 
 
 
                 przycisk.addActionListener(e -> {
                         mapkakliknieta=!mapkakliknieta;
+                        przyciski.setVisible(mapkakliknieta);
                         wybormiejs.setVisible(mapkakliknieta);
                 });
+
                 Gdansk.addActionListener(e -> {
                         mapkakliknieta=!mapkakliknieta;
                         wybormiejs.setVisible(mapkakliknieta);
@@ -212,14 +190,65 @@ public class Gra extends Okno {
         }
         void fotka(){
 
+                map = new ImageIcon("map.png");
                 Zdjecie zdjecie = new Zdjecie();
-
                 zdj=zdjecie.zdjecie;
 
 
         }
 
+        void przesuwanie() {
+                pulpit.addMouseListener(new MouseAdapter(){
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                                if (e.getButton()==MouseEvent.BUTTON1){
+                                        mouse=true;
+                                        new Thread(() -> {
+                                                int x1,x2,y1,y2;
+                                                while(mouse){
+                                                        x1=pulpit.getMousePosition().x;
+                                                        y1=pulpit.getMousePosition().y;
+                                                        x2=pulpit.getMousePosition().x;
+                                                        y2=pulpit.getMousePosition().y;
 
+                                                        x+=(x2-x1)*5;
+                                                        y+=(y2-y1)*5;
+
+                                                        if(y>=0){
+                                                                y=0;
+                                                        } else if (y<=-size.height+wysokoscokna) {
+                                                                y=-size.height+wysokoscokna;
+
+                                                        }
+
+                                                        if (x<-size.width-szerokoscokna/2){
+                                                                x=x+size.width;
+                                                        } else if (x>szerokoscokna/2) {
+                                                                x=x-size.width;
+                                                        }
+                                                        glowne_zjecie.setBounds(x,y,size.width, size.height);
+                                                        glowne_zjecieprzed.setBounds(x+size.width,y,size.width, size.height);
+                                                        glowne_zjeciepo.setBounds(x-size.width,y,size.width, size.height);
+
+                                                }
+                                        }).start();
+                                }
+                        }
+                        @Override
+                        public void mouseReleased(MouseEvent e) {
+                                if(e.getButton()==MouseEvent.BUTTON1) {
+                                        mouse = false;
+                                }
+                        }
+                });
+
+                pulpit.addMouseWheelListener(e -> {
+                        int notches = e.getWheelRotation();
+                        System.out.println(notches);
+                });
+
+
+        }
 
 
 }

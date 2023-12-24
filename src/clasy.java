@@ -3,7 +3,8 @@ import java.awt.*;
 
 
 abstract class Okno extends JFrame{
-    ImageIcon map;
+    JFrame pulpit;
+
     int szerokoscokna=1280,wysokoscokna=1024;
     JButton zamknij = new JButton(){
         @Override
@@ -24,12 +25,11 @@ abstract class Okno extends JFrame{
 
     Okno(){
 
-    setName("terenowo");
-    setTitle("terenowo");
-    setUndecorated(true);
+    pulpit = new JFrame();
+    pulpit.setUndecorated(true);
 
-    setSize(szerokoscokna,wysokoscokna );
-    setLayout(null);
+    pulpit.setSize(szerokoscokna,wysokoscokna );
+
 
 
     zamknij.setPreferredSize(new Dimension(55, 30));
@@ -38,7 +38,7 @@ abstract class Okno extends JFrame{
     zamknij.setBorderPainted(false);
 
 
-    map = new ImageIcon("map.png");
+
 
 
     }
@@ -52,9 +52,11 @@ abstract class Okno extends JFrame{
 
 class Czas{
     int min,sek;
+    JFrame pulpit;
     String m,s,tek;
     boolean apk=true;
-    Czas(int t, JLabel tekst) {
+    Czas(int t, JLabel tekst, JFrame Pulpit) {
+        pulpit=Pulpit;
         min = t/60;
         if (t==60){sek=0;}
         else{sek=30;}
@@ -77,8 +79,8 @@ class Czas{
                      Thread.sleep(1000);
 
 
-
                  }
+                 zamknij();
              }catch (InterruptedException e) {
                  Thread.currentThread().interrupt();
              }
@@ -88,12 +90,12 @@ class Czas{
     void zamknij()
     {
         apk=false;
-
+        pulpit.dispose();
     }
 }
 
 class Zdjecie extends JFrame{
-    ImageIcon zdjecie,map;
+    ImageIcon zdjecie;
 
     Zdjecie(){
         try {

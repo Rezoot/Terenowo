@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Menu extends Okno{
 
-    JFrame pulpit;
+
     String color="#f5d0ef",color_napis="#5c555b";
     JPanel fasolka;
     JLabel tek;
@@ -12,13 +12,10 @@ public class Menu extends Okno{
     Menu()
     {
 
-        pulpit = new JFrame();
-        pulpit.setName("menu");
-        pulpit.setName("menu");
+
         pulpit.setSize(400,400);
         pulpit.setLocationRelativeTo(null);
-        pulpit.setUndecorated(true);
-        //pulpit.setLayout(new BoxLayout(pulpit.getContentPane(), BoxLayout.Y_AXIS));
+
         pulpit.setLocationRelativeTo(null);
         pulpit.setBackground(new Color(0, 0, 0, 0));
 
@@ -111,10 +108,13 @@ public class Menu extends Okno{
         JPanel guzik =new JPanel();
         guzik.setOpaque(false);
         JButton graj = new JButton("START");
+        graj.setFont(new Font("Arial", Font.BOLD, 20));
+        graj.setContentAreaFilled(false);
+        graj.setBorderPainted(false);
         guzik.add(graj);
 
-        JPanel wyb = jradiobutony();
 
+        JPanel wyb = jradiobutony();
 
         center.add(Box.createVerticalStrut(10));
         center.add(tyt);
