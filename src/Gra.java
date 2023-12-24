@@ -164,7 +164,7 @@ public class Gra extends Okno {
                 prawo.add(przycisk,BorderLayout.CENTER);
 
 
-
+//DDDDD
 
                 przycisk.addActionListener(e -> {
                         mapkakliknieta=!mapkakliknieta;
