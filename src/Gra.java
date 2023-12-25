@@ -8,9 +8,8 @@ public class Gra extends Okno {
         boolean mouse,mapkakliknieta=false;
         ImageIcon zdj, map;
         int x ,y ,t;
-
+        Mapka mapka = new Mapka();
         JLabel glowne_zjecie,glowne_zjecieprzed,glowne_zjeciepo;
-        JPanel wybormiejs;
         Dimension size;
 
         Gra(int time){
@@ -18,8 +17,10 @@ public class Gra extends Okno {
 
                 t=time;
                 pulpit.setLayout(null);
-                glowne();
 
+
+
+                glowne();
 
 
                 przesuwanie();
@@ -41,7 +42,6 @@ public class Gra extends Okno {
                 glowne_zjecie = new JLabel(); //JLabel Creation
                 glowne_zjecieprzed = new JLabel(); //JLabel Creation
                 glowne_zjeciepo = new JLabel(); //JLabel Creation
-
 
 
                 glowne_zjecie.setIcon(zdj);
@@ -81,7 +81,7 @@ public class Gra extends Okno {
                 gora.add(odliczanie);
 
 
-                Czas czas = new Czas(t,odliczanie,pulpit);
+                Czas czas = new Czas(t,odliczanie,pulpit,mapka.pulpit);
 
                 JPanel goraprawo =new JPanel();
                 goraprawo.setBounds(0,10,szerokoscokna,50);
@@ -112,7 +112,7 @@ public class Gra extends Okno {
                 dol.setOpaque(false);
                 cale.add(dol,BorderLayout.SOUTH);
                 dol.setLayout(new BorderLayout());
-                
+
 
                 JPanel dol1 = new JPanel();
                 dol1.setOpaque(false);
@@ -124,13 +124,7 @@ public class Gra extends Okno {
                 dol.add(dol2,BorderLayout.SOUTH);
                 dol2.setLayout(new BorderLayout());
 
-                wybormiejs = new JPanel();
-                wybormiejs.setPreferredSize(new Dimension(500,450));
 
-                wybormiejs.setVisible(mapkakliknieta);
-                //wybormiejs.setOpaque(false);
-
-                dol1.add(wybormiejs,BorderLayout.EAST);
 
 
 
@@ -151,7 +145,9 @@ public class Gra extends Okno {
                 przyciski.setLayout(new FlowLayout(FlowLayout.LEFT));
                 przyciski.setOpaque(false);
                 przyciski.setVisible(mapkakliknieta);
+                prawo.add(przycisk,BorderLayout.CENTER);
 
+                /*
                 JButton Gdynia = new JButton("Gdynia");
                 JButton Sopot = new JButton("Sopot");
                 JButton Gdansk = new JButton("Gdańsk");
@@ -161,16 +157,11 @@ public class Gra extends Okno {
                 przyciski.add(Sopot);
                 przyciski.add(Gdansk);
                 prawo.add(przyciski,BorderLayout.WEST);
-                prawo.add(przycisk,BorderLayout.CENTER);
 
 
 
 
-                przycisk.addActionListener(e -> {
-                        mapkakliknieta=!mapkakliknieta;
-                        przyciski.setVisible(mapkakliknieta);
-                        wybormiejs.setVisible(mapkakliknieta);
-                });
+
 
                 Gdansk.addActionListener(e -> {
                         mapkakliknieta=!mapkakliknieta;
@@ -184,7 +175,13 @@ public class Gra extends Okno {
                         mapkakliknieta=!mapkakliknieta;
                         wybormiejs.setVisible(mapkakliknieta);
                 });
-
+*/
+                przycisk.addActionListener(e -> {
+                        mapkakliknieta=!mapkakliknieta;
+                        //przyciski.setVisible(mapkakliknieta);
+                        //wybormiejs.setVisible(mapkakliknieta);
+                        mapka.chowanie(mapkakliknieta);
+                });
 
 
         }

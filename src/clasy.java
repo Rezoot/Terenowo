@@ -4,8 +4,8 @@ import java.awt.*;
 
 abstract class Okno extends JFrame{
     JFrame pulpit;
-
-    int szerokoscokna=1280,wysokoscokna=1024;
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    int szerokoscokna=screenSize.width,wysokoscokna=screenSize.height-45;
     JButton zamknij = new JButton(){
         @Override
         protected void paintComponent(Graphics g) {
@@ -24,7 +24,8 @@ abstract class Okno extends JFrame{
 
 
     Okno(){
-
+    if(szerokoscokna>1280){szerokoscokna=1280;}
+    if(wysokoscokna>1080){wysokoscokna=1080;}
     pulpit = new JFrame();
     pulpit.setUndecorated(true);
 
@@ -52,11 +53,12 @@ abstract class Okno extends JFrame{
 
 class Czas{
     int min,sek;
-    JFrame pulpit;
+    JFrame pulpit,pulpit2;
     String m,s,tek;
     boolean apk=true;
-    Czas(int t, JLabel tekst, JFrame Pulpit) {
+    Czas(int t, JLabel tekst, JFrame Pulpit,JFrame Pulpit2) {
         pulpit=Pulpit;
+        pulpit2=Pulpit2;
         min = t/60;
         if (t==60){sek=0;}
         else{sek=30;}
@@ -91,6 +93,7 @@ class Czas{
     {
         apk=false;
         pulpit.dispose();
+        pulpit2.dispose();
     }
 }
 
