@@ -159,7 +159,7 @@ public class Gra extends Okno {
                 prawo.add(przyciski,BorderLayout.WEST);
 
 
-
+//DDDDD
 
 
 
