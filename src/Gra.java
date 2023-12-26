@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -8,7 +9,7 @@ public class Gra extends Okno {
         boolean mouse,mapkakliknieta=false;
         ImageIcon zdj, map;
         int x ,y ,t;
-        Mapka mapka = new Mapka();
+        Map mapka = new Map(szerokoscokna,wysokoscokna);
         JLabel glowne_zjecie,glowne_zjecieprzed,glowne_zjeciepo;
         Dimension size;
 
@@ -21,6 +22,7 @@ public class Gra extends Okno {
 
 
                 glowne();
+
 
 
                 przesuwanie();
@@ -114,22 +116,14 @@ public class Gra extends Okno {
                 dol.setLayout(new BorderLayout());
 
 
-                JPanel dol1 = new JPanel();
-                dol1.setOpaque(false);
-                dol.add(dol1,BorderLayout.CENTER);
-                dol1.setLayout(new BorderLayout());
 
-                JPanel dol2 = new JPanel();
-                dol2.setOpaque(false);
-                dol.add(dol2,BorderLayout.SOUTH);
-                dol2.setLayout(new BorderLayout());
 
 
 
 
 
                 JPanel prawo = new JPanel();
-                dol2.add(prawo,BorderLayout.EAST);
+                dol.add(prawo,BorderLayout.EAST);
                 prawo.setLayout(new BorderLayout());
                 prawo.setOpaque(false);
 
@@ -140,47 +134,13 @@ public class Gra extends Okno {
                 przycisk.setContentAreaFilled(false);
                 przycisk.setBorderPainted(false);
 
-
-                JPanel przyciski = new JPanel();
-                przyciski.setLayout(new FlowLayout(FlowLayout.LEFT));
-                przyciski.setOpaque(false);
-                przyciski.setVisible(mapkakliknieta);
                 prawo.add(przycisk,BorderLayout.CENTER);
 
-                /*
-                JButton Gdynia = new JButton("Gdynia");
-                JButton Sopot = new JButton("Sopot");
-                JButton Gdansk = new JButton("Gdańsk");
 
 
-                przyciski.add(Gdynia);
-                przyciski.add(Sopot);
-                przyciski.add(Gdansk);
-                prawo.add(przyciski,BorderLayout.WEST);
-
-
-//DDDDD
-
-
-
-                Gdansk.addActionListener(e -> {
-                        mapkakliknieta=!mapkakliknieta;
-                        wybormiejs.setVisible(mapkakliknieta);
-                });
-                Gdynia.addActionListener(e -> {
-                        mapkakliknieta=!mapkakliknieta;
-                        wybormiejs.setVisible(mapkakliknieta);
-                });
-                Sopot.addActionListener(e -> {
-                        mapkakliknieta=!mapkakliknieta;
-                        wybormiejs.setVisible(mapkakliknieta);
-                });
-*/
                 przycisk.addActionListener(e -> {
                         mapkakliknieta=!mapkakliknieta;
-                        //przyciski.setVisible(mapkakliknieta);
-                        //wybormiejs.setVisible(mapkakliknieta);
-                        mapka.chowanie(mapkakliknieta);
+                        mapka.widoczny(mapkakliknieta);
                 });
 
 
