@@ -7,7 +7,7 @@ import java.awt.event.*;
 public class Gra extends Okno {
 
         boolean mouse,mapkakliknieta=false;
-        ImageIcon zdj, map;
+        ImageIcon zdj, map, potwierdz;
         int x ,y ,t;
         Map mapka = new Map(szerokoscokna,wysokoscokna);
         JLabel glowne_zjecie,glowne_zjecieprzed,glowne_zjeciepo;
@@ -117,11 +117,6 @@ public class Gra extends Okno {
 
 
 
-
-
-
-
-
                 JPanel prawo = new JPanel();
                 dol.add(prawo,BorderLayout.EAST);
                 prawo.setLayout(new BorderLayout());
@@ -134,6 +129,14 @@ public class Gra extends Okno {
                 przycisk.setContentAreaFilled(false);
                 przycisk.setBorderPainted(false);
 
+                JButton zatwierdz = new JButton();
+                zatwierdz.setIcon(potwierdz);
+                zatwierdz.setOpaque(false);
+                zatwierdz.setContentAreaFilled(false);
+                zatwierdz.setBorderPainted(false);
+                zatwierdz.setVisible(mapkakliknieta);
+
+                prawo.add(zatwierdz,BorderLayout.WEST);
                 prawo.add(przycisk,BorderLayout.CENTER);
 
 
@@ -141,6 +144,10 @@ public class Gra extends Okno {
                 przycisk.addActionListener(e -> {
                         mapkakliknieta=!mapkakliknieta;
                         mapka.widoczny(mapkakliknieta);
+                        zatwierdz.setVisible(mapkakliknieta);
+                });
+                zatwierdz.addActionListener(e -> {
+
                 });
 
 
@@ -148,6 +155,8 @@ public class Gra extends Okno {
         void fotka(){
 
                 map = new ImageIcon("map.png");
+                potwierdz = new ImageIcon("zatwierdz.png");
+
                 Zdjecie zdjecie = new Zdjecie();
                 zdj=zdjecie.zdjecie;
 
