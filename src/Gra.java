@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Gra extends Okno {
-
         boolean mouse,mapkakliknieta=false;
         ImageIcon zdj, map, potwierdz;
         int x ,y ,t;
@@ -15,18 +14,12 @@ public class Gra extends Okno {
 
         Gra(int time){
 
-
                 t=time;
                 pulpit.setLayout(null);
 
-
-
                 glowne();
 
-
-
                 przesuwanie();
-
 
                 pulpit.setVisible(true);
         }
@@ -82,7 +75,6 @@ public class Gra extends Okno {
 
                 gora.add(odliczanie);
 
-
                 Czas czas = new Czas(t,odliczanie,pulpit,mapka.pulpit);
 
                 JPanel goraprawo =new JPanel();
@@ -93,13 +85,7 @@ public class Gra extends Okno {
                 goraprawo.add(zamknij,BorderLayout.EAST);
                 zamknij.addActionListener(e -> {czas.zamknij();new Menu();});
 
-
                 przyciski();
-
-
-
-
-
         }
         void przyciski(){
 
@@ -122,7 +108,6 @@ public class Gra extends Okno {
                 prawo.setLayout(new BorderLayout());
                 prawo.setOpaque(false);
 
-
                 JButton przycisk = new JButton();
                 przycisk.setIcon(map);
                 przycisk.setOpaque(false);
@@ -139,27 +124,23 @@ public class Gra extends Okno {
                 prawo.add(zatwierdz,BorderLayout.WEST);
                 prawo.add(przycisk,BorderLayout.CENTER);
 
-
-
                 przycisk.addActionListener(e -> {
                         mapkakliknieta=!mapkakliknieta;
                         mapka.widoczny(mapkakliknieta);
                         zatwierdz.setVisible(mapkakliknieta);
                 });
+
                 zatwierdz.addActionListener(e -> {
 
                 });
 
-
         }
         void fotka(){
-
                 map = new ImageIcon("map.png");
                 potwierdz = new ImageIcon("zatwierdz.png");
 
                 Zdjecie zdjecie = new Zdjecie();
                 zdj=zdjecie.zdjecie;
-
 
         }
 
@@ -213,8 +194,5 @@ public class Gra extends Okno {
                         System.out.println(notches);
                 });
 
-
         }
-
-
 }

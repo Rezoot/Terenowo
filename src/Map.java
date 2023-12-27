@@ -1,4 +1,4 @@
-import org.jxmapviewer.JXMapKit;
+
 import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.input.PanMouseInputListener;
@@ -11,66 +11,55 @@ import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collections;
+
 import java.util.HashSet;
 import java.util.Set;
 
 
 public class Map extends JFrame {
     JFrame pulpit = new JFrame();
-    int x1,y1;
-    int x2,y2;
+    int x1,x2,y1,y2;
     JXMapViewer mapa;
-    public Map(int szer,int wys) {
 
-
-        pulpit.setBounds(szer-500,wys-460,500,400);
+    public Map(int szer, int wys) {
+        pulpit.setBounds(szer - 500, wys - 460, 500, 400);
 
         mapa();
-        x1=0;y1=0;x2=0;y2=0;
+
         pulpit.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e){
+            public void mouseClicked(MouseEvent e) {
 
-                //y1 = e.getY();x1 = e.getX();
-                //y2 = e.getY()+100;x2 = e.getX();
+                 y1 = e.getY();
+                 x1 = e.getX();
 
-                if(e.getButton()==1){
-                    y1 = e.getY();x1 = e.getX();
-                }
-                if(e.getButton()==3){
-                    y2 = e.getY();x2 = e.getX();
-                }
+                Waypoint waypoint1 = new DefaultWaypoint(mapa.convertPointToGeoPosition(new Point(x1, y1)));
 
-                Waypoint waypoint1 = new DefaultWaypoint(mapa.convertPointToGeoPosition(new Point(x1,y1)));
-                Waypoint waypoint2 = new DefaultWaypoint(mapa.convertPointToGeoPosition(new Point(x2,y2)));
-
-                System.out.println(Math.abs(waypoint2.getPosition().getLatitude()-waypoint1.getPosition().getLatitude())*111);
+                //policz(waypoint1.getPosition().getLatitude(),waypoint2.getPosition().getLatitude(),waypoint1.getPosition().getLongitude(),waypoint2.getPosition().getLongitude());
 
                 Set<Waypoint> waypointSet = new HashSet<>();
                 waypointSet.add(waypoint1);
-                waypointSet.add(waypoint2);
+
 
                 WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<>();
                 waypointPainter.setWaypoints(waypointSet);
                 mapa.setOverlayPainter(waypointPainter);
-                x1= e.getX();y1=e.getY();
-
-
             }
-
         });
-
-
+    }
+    public Map(int X1, int X2,int Y1,int Y2) {
+        x1=X1;x2=X2;y1=Y1;y2=Y2;
 
     }
-    void widoczny(boolean bool){
+
+    void widoczny(boolean bool) {
         pulpit.setVisible(bool);
     }
-    void mapa(){
+
+    void mapa() {
 
         pulpit.setAlwaysOnTop(true);
         mapa = new JXMapViewer();
-        mapa.setTileFactory(new DefaultTileFactory(new OSMTileFactoryInfo("","https://tile.openstreetmap.org"))); // Parametry kafelka
+        mapa.setTileFactory(new DefaultTileFactory(new OSMTileFactoryInfo("", "https://tile.openstreetmap.org"))); // Parametry kafelka
 
         mapa.setAddressLocation(new GeoPosition(54.434195, 18.570538));
         mapa.setZoom(8);
@@ -82,11 +71,59 @@ public class Map extends JFrame {
         pulpit.getContentPane().add(mapa);
 
 
-
-    }
-    void policz(){
-
-
     }
 
+    void policz(double latp, double latc, double longp, double longc) {
+        int req = 6378137;
+        double f = 1 / 298.257223563;
+        double rpol = 6356752.314245;
+        latp = Math.PI * latp / 180;
+        latc = Math.PI * latc / 180;
+        longp = Math.PI * longp / 180;
+        longc = Math.PI * longc / 180;
+
+        double sin_sigma = 0, cos_sigma = 0, sigma = 0, sin_alpha, cos_sq_alpha = 0, cos2sigma = 0;
+        double C, lam_pre;
+
+        double U1 = Math.atan((1 - f) * Math.tan(latc));
+        double U2 = Math.atan((1 - f) * Math.tan(latp));
+
+        double lon = longp - longc;
+        double lam = lon;
+        double tol = Math.pow(10., -12);
+        double diff = 1.;
+
+        double cosU1 = Math.cos(U1);
+        double cosU2 = Math.cos(U2);
+        double sinU1 = Math.sin(U1);
+        double sinU2 = Math.sin(U2);
+        double coslam = Math.cos(lam), sinlam = Math.sin(lam);
+
+        while (Math.abs(diff) > tol) {
+
+            sin_sigma = Math.sqrt(Math.pow((cosU2 * sinlam), 2.) + Math.pow(cosU1 * sinU2 - sinU1 * cosU2 * coslam, 2.));
+            cos_sigma = sinU1 * sinU2 + cosU1 * cosU2 * coslam;
+            sigma = Math.atan(sin_sigma / cos_sigma);
+            sin_alpha = (cosU1 * cosU2 * sinlam) / sin_sigma;
+            cos_sq_alpha = 1 - Math.pow(sin_alpha, 2.);
+            cos2sigma = cos_sigma - ((2 * sinU1 * sinU2) / cos_sq_alpha);
+            C = (f / 16) * cos_sq_alpha * (4 + f * (4 - 3 * cos_sq_alpha));
+            lam_pre = lam;
+            lam = lon + (1 - C) * f * sin_alpha * (sigma + C * sin_sigma * (cos2sigma + C * cos_sigma * (2 * Math.pow(cos2sigma, 2.) - 1)));
+            diff = Math.abs(lam_pre - lam);
+            coslam = Math.cos(lam);
+            sinlam = Math.sin(lam);
+
+        }
+
+        double usq = cos_sq_alpha * ((Math.pow(req, 2.) - Math.pow(rpol, 2.)) / Math.pow(rpol, 2.));
+        double A = 1 + (usq / 16384) * (4096 + usq * (-768 + usq * (320 - 175 * usq)));
+        double B = (usq / 1024) * (256 + usq * (-128 + usq * (74 - 47 * usq)));
+        double delta_sig = B * sin_sigma * (cos2sigma + 0.25 * B * (cos_sigma * (-1 + 2 * Math.pow(cos2sigma, 2.)) -
+                ((double) 1 / 6) * B * cos2sigma * (-3 + 4 * Math.pow(sin_sigma, 2.)) *
+                        (-3 + 4 * Math.pow(cos2sigma, 2.))));
+        double dis = rpol * A * (sigma - delta_sig);
+        System.out.println(dis);
+
+    }
 }
