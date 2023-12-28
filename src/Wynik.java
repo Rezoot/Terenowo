@@ -1,16 +1,16 @@
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.util.concurrent.ForkJoinPool;
 
 public class Wynik extends Okno{
     String gra;
     int wynik;
     int plus;
-    int gorawys=50,gora2wys=50,mapa=100,dol=100;
+    int gorawys=50,gora2wys=50,mapa=400,dol=50;
     String czas;
     double x1,x2,y1,y2;
-    Wynik(String Czas,String Gra,double X1,double Y1,double X2,double Y2)
-    {
+    Wynik(String Czas,String Gra,double X1,double Y1,double X2,double Y2) {
         x1=X1;x2=X2;y1=Y1;y2=Y2;
         gra=Gra;
         czas=Czas;
@@ -25,6 +25,9 @@ public class Wynik extends Okno{
         gora2();
 
         mappa();
+
+        dol();
+
 
 
 
@@ -110,7 +113,7 @@ public class Wynik extends Okno{
     void mappa(){
 
         JPanel pan = new JPanel();
-        pan.setPreferredSize(new Dimension(szerokoscokna, wysokoscokna-gorawys-gora2wys));
+        pan.setPreferredSize(new Dimension(szerokoscokna, mapa));
         pan.setLayout(new GridBagLayout());
 
         JPanel srodek = new JPanel();
@@ -127,13 +130,29 @@ public class Wynik extends Okno{
         pan.add(srodek,gbc);
 
 
-        new Map(x1,51,y1,18,srodek);
+        new Map(x1,x2,y1,y2,srodek);
         pan.setBackground(Color.PINK);
         pulpit.add(pan);
 
 
     }
+    void dol(){
+        JPanel napis = new JPanel();
+        napis.setOpaque(false);
+        napis.setPreferredSize(new Dimension(szerokoscokna,wysokoscokna-gora2wys-gorawys-mapa));
+        napis.setLayout(new BorderLayout());
+        pulpit.add(napis);
 
+
+        JLabel uzyskanie = new JLabel("Uzyskane punkty: 10");
+        uzyskanie.setFont(new Font("Arial", Font.PLAIN, 30));
+        uzyskanie.setOpaque(true);
+        uzyskanie.setBackground(Color.BLACK);
+        uzyskanie.setForeground(Color.WHITE);
+        uzyskanie.setBorder(new LineBorder(Color.BLACK, 2));
+        napis.add(uzyskanie,BorderLayout.NORTH);
+
+    }
 
     void punkty(){}
 

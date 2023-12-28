@@ -19,7 +19,7 @@ import java.util.Set;
 public class Map extends JFrame {
     JFrame pulpit = new JFrame();
     int x1,y1;
-    double latp=-1,latc=-1,longp=-1,longc=-1;
+    double latp,latc,longp,longc;
     JXMapViewer mapa;
 
     public Map(int szer, int wys) {
@@ -60,7 +60,7 @@ public class Map extends JFrame {
         mapa.setTileFactory(new DefaultTileFactory(new OSMTileFactoryInfo("", "https://tile.openstreetmap.org"))); // Parametry kafelka
 
         mapa.setAddressLocation(new GeoPosition(srednialat, srednialong));
-        mapa.setZoom(8);
+        mapa.setZoom(10);
         MouseInputListener a = new PanMouseInputListener(mapa);
         panel.addMouseListener(a);
         panel.addMouseMotionListener(a);
