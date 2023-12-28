@@ -125,7 +125,7 @@ public class Menu extends Okno{
         center.add(Box.createVerticalStrut(30));
         center.add(wyb);
 
-        graj.addActionListener(e -> {new Gra(time);pulpit.dispose();});
+        graj.addActionListener(e -> {new Gra(time,1);pulpit.dispose();});
 
     }
     JPanel jradiobutony(){

@@ -18,7 +18,8 @@ import java.util.Set;
 
 public class Map extends JFrame {
     JFrame pulpit = new JFrame();
-    int x1,x2,y1,y2;
+    int x1,y1;
+    double latp=-1,latc=-1,longp=-1,longc=-1;
     JXMapViewer mapa;
 
     public Map(int szer, int wys) {
@@ -33,7 +34,8 @@ public class Map extends JFrame {
                  x1 = e.getX();
 
                 Waypoint waypoint1 = new DefaultWaypoint(mapa.convertPointToGeoPosition(new Point(x1, y1)));
-
+                longp = waypoint1.getPosition().getLongitude();
+                latp = waypoint1.getPosition().getLatitude();
                 //policz(waypoint1.getPosition().getLatitude(),waypoint2.getPosition().getLatitude(),waypoint1.getPosition().getLongitude(),waypoint2.getPosition().getLongitude());
 
                 Set<Waypoint> waypointSet = new HashSet<>();
@@ -46,9 +48,43 @@ public class Map extends JFrame {
             }
         });
     }
-    public Map(int X1, int X2,int Y1,int Y2) {
-        x1=X1;x2=X2;y1=Y1;y2=Y2;
 
+    public Map(double X1, double X2,double Y1,double Y2, JPanel panel) {
+        longp=X1;longc=X2;latp=Y1;latc=Y2;
+        double srednialong=(longp+longc)/2;
+        double srednialat=(latp+latc)/2;
+        //mapa();
+        panel.setLayout(new BorderLayout());
+
+        mapa = new JXMapViewer();
+        mapa.setTileFactory(new DefaultTileFactory(new OSMTileFactoryInfo("", "https://tile.openstreetmap.org"))); // Parametry kafelka
+
+        mapa.setAddressLocation(new GeoPosition(srednialat, srednialong));
+        mapa.setZoom(8);
+        MouseInputListener a = new PanMouseInputListener(mapa);
+        panel.addMouseListener(a);
+        panel.addMouseMotionListener(a);
+        panel.addMouseWheelListener(new ZoomMouseWheelListenerCenter(mapa));
+
+
+        Waypoint waypoint1 = new DefaultWaypoint(new GeoPosition(latp,longp));
+        Waypoint waypoint2 = new DefaultWaypoint(new GeoPosition(latc,longc));
+
+
+        policz();
+
+        Set<Waypoint> waypointSet = new HashSet<>();
+        waypointSet.add(waypoint1);
+        waypointSet.add(waypoint2);
+
+
+        WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<>();
+        waypointPainter.setWaypoints(waypointSet);
+        mapa.setOverlayPainter(waypointPainter);
+
+        panel.add(mapa,BorderLayout.CENTER);
+
+        //pulpit.setVisible(true);
     }
 
     void widoczny(boolean bool) {
@@ -58,6 +94,7 @@ public class Map extends JFrame {
     void mapa() {
 
         pulpit.setAlwaysOnTop(true);
+
         mapa = new JXMapViewer();
         mapa.setTileFactory(new DefaultTileFactory(new OSMTileFactoryInfo("", "https://tile.openstreetmap.org"))); // Parametry kafelka
 
@@ -73,7 +110,7 @@ public class Map extends JFrame {
 
     }
 
-    void policz(double latp, double latc, double longp, double longc) {
+    void policz() {
         int req = 6378137;
         double f = 1 / 298.257223563;
         double rpol = 6356752.314245;

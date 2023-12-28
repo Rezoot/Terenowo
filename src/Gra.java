@@ -10,10 +10,12 @@ public class Gra extends Okno {
         int x ,y ,t;
         Map mapka = new Map(szerokoscokna,wysokoscokna);
         JLabel glowne_zjecie,glowne_zjecieprzed,glowne_zjeciepo;
+        JLabel odliczanie;
         Dimension size;
-
-        Gra(int time){
-
+        Czas czas;
+        int gra;
+        Gra(int time, int Gra){
+                gra=Gra;
                 t=time;
                 pulpit.setLayout(null);
 
@@ -66,7 +68,7 @@ public class Gra extends Okno {
                 pulpit.add(gora);
                 gora.setOpaque(false);
 
-                JLabel odliczanie = new JLabel();
+                odliczanie = new JLabel();
                 odliczanie.setFont(new Font("Arial", Font.PLAIN, 30));
                 odliczanie.setOpaque(true);
                 odliczanie.setBackground(Color.BLACK);
@@ -75,7 +77,7 @@ public class Gra extends Okno {
 
                 gora.add(odliczanie);
 
-                Czas czas = new Czas(t,odliczanie,pulpit,mapka.pulpit);
+                czas = new Czas(t,odliczanie,pulpit,mapka.pulpit);
 
                 JPanel goraprawo =new JPanel();
                 goraprawo.setBounds(0,10,szerokoscokna,50);
@@ -131,6 +133,8 @@ public class Gra extends Okno {
                 });
 
                 zatwierdz.addActionListener(e -> {
+                        czas.zamknij();
+                        new Wynik(odliczanie.getText(),String.valueOf(gra),mapka.longp,mapka.latp,mapka.longc,mapka.latc);
 
                 });
 
