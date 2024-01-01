@@ -7,7 +7,8 @@ public class Wynik extends Okno{
     String gra;
     int wynik;
     int plus;
-    int gorawys=50,gora2wys=50,mapa=400,dol=50;
+    Map mapka;
+    int tekst=50,mapa=400;
     String czas;
     double x1,x2,y1,y2;
     Wynik(String Czas,String Gra,double X1,double Y1,double X2,double Y2) {
@@ -40,7 +41,7 @@ public class Wynik extends Okno{
         pulpit.add(gora);
         gora.setLayout(new OverlayLayout(gora));
         gora.setOpaque(false);
-        gora.setPreferredSize(new Dimension(szerokoscokna,gorawys));
+        gora.setPreferredSize(new Dimension(szerokoscokna,tekst));
 
         JPanel wynik = new JPanel();
         wynik.setOpaque(false);
@@ -77,7 +78,7 @@ public class Wynik extends Okno{
         gora.setLayout(new OverlayLayout(gora));
         gora.setOpaque(false);
         gora.setBackground(Color.blue);
-        gora.setPreferredSize(new Dimension(szerokoscokna,gora2wys));
+        gora.setPreferredSize(new Dimension(szerokoscokna,tekst));
 
         JPanel wynik = new JPanel();
         wynik.setOpaque(false);
@@ -130,28 +131,49 @@ public class Wynik extends Okno{
         pan.add(srodek,gbc);
 
 
-        new Map(x1,x2,y1,y2,srodek);
+        mapka = new Map(x1,x2,y1,y2,srodek);
         pan.setBackground(Color.PINK);
         pulpit.add(pan);
 
 
     }
     void dol(){
-        JPanel napis = new JPanel();
-        napis.setOpaque(false);
-        napis.setPreferredSize(new Dimension(szerokoscokna,wysokoscokna-gora2wys-gorawys-mapa));
-        napis.setLayout(new BorderLayout());
-        pulpit.add(napis);
 
+        JPanel dol = new JPanel();
+        pulpit.add(dol);
+        dol.setOpaque(false);
+        dol.setBackground(Color.blue);
+        dol.setPreferredSize(new Dimension(szerokoscokna,tekst));
 
-        JLabel uzyskanie = new JLabel("Uzyskane punkty: 10");
-        uzyskanie.setFont(new Font("Arial", Font.PLAIN, 30));
-        uzyskanie.setOpaque(true);
-        uzyskanie.setBackground(Color.BLACK);
-        uzyskanie.setForeground(Color.WHITE);
-        uzyskanie.setBorder(new LineBorder(Color.BLACK, 2));
-        napis.add(uzyskanie,BorderLayout.NORTH);
+        JPanel wynik = new JPanel();
+        wynik.setOpaque(false);
+        dol.add(wynik);
 
+        JLabel uzyskane = new JLabel("wynik: 100");
+        uzyskane.setFont(new Font("Arial", Font.PLAIN, 30));
+        uzyskane.setOpaque(true);
+        uzyskane.setBackground(Color.BLACK);
+        uzyskane.setForeground(Color.WHITE);
+        uzyskane.setBorder(new LineBorder(Color.BLACK, 2));
+        wynik.add(uzyskane,BorderLayout.CENTER);
+
+        JPanel dol2 = new JPanel();
+        pulpit.add(dol2);
+        dol2.setOpaque(false);
+        dol2.setBackground(Color.blue);
+        dol2.setPreferredSize(new Dimension(szerokoscokna,wysokoscokna-mapa-3*tekst));
+
+        JPanel odl = new JPanel();
+        wynik.setOpaque(false);
+        dol2.add(odl);
+
+        JLabel km = new JLabel("odleglosc: "+ mapka.odleglosc);
+        km.setFont(new Font("Arial", Font.PLAIN, 30));
+        km.setOpaque(true);
+        km.setBackground(Color.BLACK);
+        km.setForeground(Color.WHITE);
+        km.setBorder(new LineBorder(Color.BLACK, 2));
+        odl.add(km,BorderLayout.CENTER);
     }
 
     void punkty(){}

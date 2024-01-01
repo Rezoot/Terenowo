@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 abstract class Okno extends JFrame{
@@ -99,18 +102,73 @@ class Czas{
 
 class Zdjecie extends JFrame{
     ImageIcon zdjecie;
-
+    double x,y;
+    String a="",b="",c="";
+    int tryb=0;
+    String wylosowane;
     Zdjecie(){
         try {
-            zdjecie = new ImageIcon("1.jpg");
+            wylosowane=losuj();
+            String filename = "plansza/"+wylosowane+".jpg";
+            zdjecie = new ImageIcon(filename);
             Image image  = zdjecie.getImage();
             zdjecie = new ImageIcon(image.getScaledInstance(zdjecie.getIconWidth()/2,zdjecie.getIconHeight()/2,Image.SCALE_FAST));
+            try (BufferedReader br = new BufferedReader(new FileReader("lokalizacja"))) {
+                String linia;
 
+                while ((linia = br.readLine()) != null) {
+                    System.out.println(linia);
+
+                    for(int i = 0; i < linia.length(); i++){
+
+                        if(linia.charAt(i)==';')
+                        {
+                            /*
+                            if (tryb==0 && c.equals(wylosowane))
+                            {
+                                }
+                            */
+                            tryb++;
+                        }
+                        else if (tryb==1)
+                        {
+                            a+=linia.charAt(i);
+                        }
+                        else if (tryb==2)
+                        {
+                            b+=linia.charAt(i);
+                        }
+                        else if (tryb==0)
+                        {
+                            c+=linia.charAt(i);
+
+                        }
+
+                    }
+                    y=Double.parseDouble(a);
+                    x=Double.parseDouble(b);
+                    System.out.println(x);
+                    System.out.println(y);
+                    c="";
+                    a="";
+                    b="";
+                    tryb=0;
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         catch(Exception e){
             System.out.println("nie dziala");
         }
     }
+String losuj(){
+        int liczba=1;
+
+      return String.valueOf(liczba);
+}
+
 }
 
 

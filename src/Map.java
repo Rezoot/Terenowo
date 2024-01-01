@@ -21,6 +21,7 @@ public class Map extends JFrame {
     int x1,y1;
     double latp,latc,longp,longc;
     JXMapViewer mapa;
+    String odleglosc;
 
     public Map(int szer, int wys) {
         pulpit.setBounds(szer - 500, wys - 460, 500, 400);
@@ -71,7 +72,7 @@ public class Map extends JFrame {
         Waypoint waypoint2 = new DefaultWaypoint(new GeoPosition(latc,longc));
 
 
-        policz();
+
 
         Set<Waypoint> waypointSet = new HashSet<>();
         waypointSet.add(waypoint1);
@@ -83,7 +84,7 @@ public class Map extends JFrame {
         mapa.setOverlayPainter(waypointPainter);
 
         panel.add(mapa,BorderLayout.CENTER);
-
+        odleglosc=policz();
         //pulpit.setVisible(true);
     }
 
@@ -110,7 +111,7 @@ public class Map extends JFrame {
 
     }
 
-    void policz() {
+    String policz() {
         int req = 6378137;
         double f = 1 / 298.257223563;
         double rpol = 6356752.314245;
@@ -160,7 +161,7 @@ public class Map extends JFrame {
                 ((double) 1 / 6) * B * cos2sigma * (-3 + 4 * Math.pow(sin_sigma, 2.)) *
                         (-3 + 4 * Math.pow(cos2sigma, 2.))));
         double dis = rpol * A * (sigma - delta_sig);
-        System.out.println(dis);
+        return String.valueOf(dis);
 
     }
 }
