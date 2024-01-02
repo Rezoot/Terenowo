@@ -5,8 +5,8 @@ public class Main {
 
 
 
-        //new Menu();
-        new Gra(90,1);
+        new Menu();
+        //new Gra(90,1,0);
         //Map a = new Map(400,400);
 
         //.policz(18.865443,9.021693,51.955589,50.019545);

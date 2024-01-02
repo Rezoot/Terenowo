@@ -1,8 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
+import java.util.Random;
 
 
 abstract class Okno extends JFrame{
@@ -100,76 +103,113 @@ class Czas{
     }
 }
 
-class Zdjecie extends JFrame{
+class Zdjecie extends JFrame {
     ImageIcon zdjecie;
-    double x,y;
-    String a="",b="",c="";
-    int tryb=0;
+    double x, y;
+    String a = "", b = "", c = "";
+    int tryb = 0;
     String wylosowane;
-    Zdjecie(){
+
+    Zdjecie() {
+
         try {
-            wylosowane=losuj();
-            String filename = "plansza/"+wylosowane+".jpg";
+            wylosowane = losuj();
+
+            String filename = "plansza/" + wylosowane + ".jpg";
             zdjecie = new ImageIcon(filename);
-            Image image  = zdjecie.getImage();
-            zdjecie = new ImageIcon(image.getScaledInstance(zdjecie.getIconWidth()/2,zdjecie.getIconHeight()/2,Image.SCALE_FAST));
+            Image image = zdjecie.getImage();
+            zdjecie = new ImageIcon(image.getScaledInstance(zdjecie.getIconWidth() / 2, zdjecie.getIconHeight() / 2, Image.SCALE_FAST));
+
             try (BufferedReader br = new BufferedReader(new FileReader("lokalizacja"))) {
                 String linia;
 
                 while ((linia = br.readLine()) != null) {
-                    System.out.println(linia);
 
-                    for(int i = 0; i < linia.length(); i++){
 
-                        if(linia.charAt(i)==';')
-                        {
-                            /*
-                            if (tryb==0 && c.equals(wylosowane))
-                            {
-                                }
-                            */
+                    for (int i = 0; i < linia.length(); i++) {
+
+                        if (linia.charAt(i) == ';') {
+
+                            if (tryb == 0 && !(c.equals(wylosowane))) {
+
+                                break;
+
+                            }
+
                             tryb++;
-                        }
-                        else if (tryb==1)
-                        {
-                            a+=linia.charAt(i);
-                        }
-                        else if (tryb==2)
-                        {
-                            b+=linia.charAt(i);
-                        }
-                        else if (tryb==0)
-                        {
-                            c+=linia.charAt(i);
+                        } else if (tryb == 1) {
+                            a += linia.charAt(i);
+                        } else if (tryb == 2) {
+                            b += linia.charAt(i);
+                        } else if (tryb == 0) {
+                            c += linia.charAt(i);
 
                         }
 
                     }
-                    y=Double.parseDouble(a);
-                    x=Double.parseDouble(b);
-                    System.out.println(x);
-                    System.out.println(y);
-                    c="";
-                    a="";
-                    b="";
-                    tryb=0;
+                    if (!Objects.equals(a, "")) {
+                        y = Double.parseDouble(a);
+                        x = Double.parseDouble(b);
+
+                    }
+
+                    c = "";
+                    a = "";
+                    b = "";
+                    tryb = 0;
+
 
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.out.println("nie dziala");
         }
     }
-String losuj(){
-        int liczba=1;
 
-      return String.valueOf(liczba);
+    String losuj() {
+
+
+        int dolnyZakres = 1;
+        int gornyZakres = ilosc_plikow();
+
+        // Tworzymy obiekt klasy Random
+        Random losowanie = new Random();
+
+        // Losujemy liczbę z podanego przedziału
+        int wylosowanaLiczba = losowanie.nextInt(gornyZakres - dolnyZakres + 1) + dolnyZakres;
+
+        return String.valueOf(wylosowanaLiczba);
+    }
+
+
+    int ilosc_plikow() {
+        int ile=0;
+        File folder = new File("plansza");
+        if (folder.isDirectory())
+        {
+            File[] listaPlikow = folder.listFiles();
+            if (listaPlikow != null)
+            {
+                for (File ignored : listaPlikow)
+                {
+                  ile++;
+                }
+            }
+            else
+            {
+                System.out.println("Folder jest pusty.");
+            }
+        }
+        else
+        {
+            System.out.println("Podana ścieżka nie wskazuje na folder.");
+        }
+        return ile;
+    }
 }
 
-}
 
 
 

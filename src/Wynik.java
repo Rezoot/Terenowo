@@ -5,22 +5,22 @@ import java.util.concurrent.ForkJoinPool;
 
 public class Wynik extends Okno{
     String gra;
-    int wynik;
+    int punkty;
     int plus;
     Map mapka;
     int tekst=50,mapa=400;
     String czas;
     double x1,x2,y1,y2;
-    Wynik(String Czas,String Gra,double X1,double Y1,double X2,double Y2) {
+    int tryb;
+    Wynik(int Tryb, String Czas,String Gra,double X1,double Y1,double X2,double Y2,int Punkty) {
+        tryb=Tryb;
+        punkty=Punkty;
         x1=X1;x2=X2;y1=Y1;y2=Y2;
         gra=Gra;
         czas=Czas;
+        mapka = new Map(x1,x2,y1,y2);
+
         pulpit.setLayout(new BoxLayout(pulpit.getContentPane(),BoxLayout.Y_AXIS));
-        //pulpit.setUndecorated(false);
-
-
-        //Map mapka = new Map(szerokoscokna,wysokoscokna);
-        //mapka.pulpit.setVisible(true);
 
         gora();
         gora2();
@@ -30,9 +30,6 @@ public class Wynik extends Okno{
         dol();
 
 
-
-
-       // pulpit.setUndecorated(true);
         pulpit.setVisible(true);
 
     }
@@ -84,8 +81,10 @@ public class Wynik extends Okno{
         wynik.setOpaque(false);
         gora.add(wynik);
 
+        plus=punkty();
+        punkty+=plus;
 
-        JLabel odliczanie = new JLabel("wynik: 100");
+        JLabel odliczanie = new JLabel("wynik: "+punkty);
         odliczanie.setFont(new Font("Arial", Font.PLAIN, 30));
         odliczanie.setOpaque(true);
         odliczanie.setBackground(Color.BLACK);
@@ -118,7 +117,6 @@ public class Wynik extends Okno{
         pan.setLayout(new GridBagLayout());
 
         JPanel srodek = new JPanel();
-        //srodek.setBackground(Color.blue);
         srodek.setPreferredSize(new Dimension(600,300));
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -131,7 +129,9 @@ public class Wynik extends Okno{
         pan.add(srodek,gbc);
 
 
-        mapka = new Map(x1,x2,y1,y2,srodek);
+
+        mapka.panel=srodek;
+        mapka.wstaw();
         pan.setBackground(Color.PINK);
         pulpit.add(pan);
 
@@ -149,7 +149,7 @@ public class Wynik extends Okno{
         wynik.setOpaque(false);
         dol.add(wynik);
 
-        JLabel uzyskane = new JLabel("wynik: 100");
+        JLabel uzyskane = new JLabel("wynik: "+plus);
         uzyskane.setFont(new Font("Arial", Font.PLAIN, 30));
         uzyskane.setOpaque(true);
         uzyskane.setBackground(Color.BLACK);
@@ -167,7 +167,18 @@ public class Wynik extends Okno{
         wynik.setOpaque(false);
         dol2.add(odl);
 
-        JLabel km = new JLabel("odleglosc: "+ mapka.odleglosc);
+        String napis;
+        if(mapka.odleglosc>2500)
+        {
+             napis = "odleglosc: " + mapka.odleglosc/1000 + "km";
+
+        }
+        else
+        {
+             napis = "odleglosc: " + (int)mapka.odleglosc + "m";;
+        }
+
+        JLabel km = new JLabel(napis);
         km.setFont(new Font("Arial", Font.PLAIN, 30));
         km.setOpaque(true);
         km.setBackground(Color.BLACK);
@@ -176,6 +187,13 @@ public class Wynik extends Okno{
         odl.add(km,BorderLayout.CENTER);
     }
 
-    void punkty(){}
+    int punkty(){
+        int punkty;
+        punkty = 5000 - (int)Math.round(mapka.odleglosc)+1000/tryb*30;
+
+        if(punkty<0){punkty=0;}
+        System.out.println(tryb);
+        return punkty;
+    }
 
 }

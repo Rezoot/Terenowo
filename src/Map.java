@@ -21,8 +21,9 @@ public class Map extends JFrame {
     int x1,y1;
     double latp,latc,longp,longc;
     JXMapViewer mapa;
-    String odleglosc;
-
+    double odleglosc;
+    JPanel panel;
+    double srednialong,srednialat;
     public Map(int szer, int wys) {
         pulpit.setBounds(szer - 500, wys - 460, 500, 400);
 
@@ -50,11 +51,14 @@ public class Map extends JFrame {
         });
     }
 
-    public Map(double X1, double X2,double Y1,double Y2, JPanel panel) {
+    public Map(double X1, double X2,double Y1,double Y2) {
         longp=X1;longc=X2;latp=Y1;latc=Y2;
-        double srednialong=(longp+longc)/2;
-        double srednialat=(latp+latc)/2;
-        //mapa();
+        srednialong=(longp+longc)/2;
+        srednialat=(latp+latc)/2;
+        odleglosc = policz();
+    }
+    void wstaw()
+    {
         panel.setLayout(new BorderLayout());
 
         mapa = new JXMapViewer();
@@ -84,10 +88,8 @@ public class Map extends JFrame {
         mapa.setOverlayPainter(waypointPainter);
 
         panel.add(mapa,BorderLayout.CENTER);
-        odleglosc=policz();
-        //pulpit.setVisible(true);
-    }
 
+    }
     void widoczny(boolean bool) {
         pulpit.setVisible(bool);
     }
@@ -111,22 +113,22 @@ public class Map extends JFrame {
 
     }
 
-    String policz() {
+    double policz() {
         int req = 6378137;
         double f = 1 / 298.257223563;
         double rpol = 6356752.314245;
-        latp = Math.PI * latp / 180;
-        latc = Math.PI * latc / 180;
-        longp = Math.PI * longp / 180;
-        longc = Math.PI * longc / 180;
+        double latp2 = Math.PI * latp / 180;
+        double latc2 = Math.PI * latc / 180;
+        double longp2 = Math.PI * longp / 180;
+        double longc2 = Math.PI * longc / 180;
 
         double sin_sigma = 0, cos_sigma = 0, sigma = 0, sin_alpha, cos_sq_alpha = 0, cos2sigma = 0;
         double C, lam_pre;
 
-        double U1 = Math.atan((1 - f) * Math.tan(latc));
-        double U2 = Math.atan((1 - f) * Math.tan(latp));
+        double U1 = Math.atan((1 - f) * Math.tan(latc2));
+        double U2 = Math.atan((1 - f) * Math.tan(latp2));
 
-        double lon = longp - longc;
+        double lon = longp2 - longc2;
         double lam = lon;
         double tol = Math.pow(10., -12);
         double diff = 1.;
@@ -161,7 +163,8 @@ public class Map extends JFrame {
                 ((double) 1 / 6) * B * cos2sigma * (-3 + 4 * Math.pow(sin_sigma, 2.)) *
                         (-3 + 4 * Math.pow(cos2sigma, 2.))));
         double dis = rpol * A * (sigma - delta_sig);
-        return String.valueOf(dis);
+        dis=Math.round(dis);
+        return dis;
 
     }
 }

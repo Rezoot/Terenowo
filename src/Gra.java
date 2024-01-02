@@ -8,13 +8,16 @@ public class Gra extends Okno {
         boolean mouse,mapkakliknieta=false;
         ImageIcon zdj, map, potwierdz;
         int x ,y ,t;
+        double X,Y;
         Map mapka = new Map(szerokoscokna,wysokoscokna);
         JLabel glowne_zjecie,glowne_zjecieprzed,glowne_zjeciepo;
         JLabel odliczanie;
         Dimension size;
         Czas czas;
+        int wynik;
         int gra;
-        Gra(int time, int Gra){
+        Gra(int time, int Gra, int Wynik){
+                wynik=Wynik;
                 gra=Gra;
                 t=time;
                 pulpit.setLayout(null);
@@ -134,7 +137,7 @@ public class Gra extends Okno {
 
                 zatwierdz.addActionListener(e -> {
                         czas.zamknij();
-                        new Wynik(odliczanie.getText(),String.valueOf(gra),mapka.longp,mapka.latp,mapka.longc,mapka.latc);
+                        new Wynik(t, odliczanie.getText(),String.valueOf(gra),mapka.longp,mapka.latp,X,Y,wynik);
 
                 });
 
@@ -145,6 +148,8 @@ public class Gra extends Okno {
 
                 Zdjecie zdjecie = new Zdjecie();
                 zdj=zdjecie.zdjecie;
+                X=zdjecie.x;
+                Y=zdjecie.y;
 
         }
 
