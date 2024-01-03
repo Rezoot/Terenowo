@@ -16,6 +16,7 @@ public class Gra extends Okno {
         Czas czas;
         int wynik;
         int gra;
+
         Gra(int time, int Gra, int Wynik){
                 wynik=Wynik;
                 gra=Gra;
@@ -80,15 +81,20 @@ public class Gra extends Okno {
 
                 gora.add(odliczanie);
 
-                czas = new Czas(t,odliczanie,pulpit,mapka.pulpit);
+                czas = new Czas(t,odliczanie,this);
 
-                JPanel goraprawo =new JPanel();
+                JPanel goraprawo = new JPanel();
                 goraprawo.setBounds(0,10,szerokoscokna,50);
                 pulpit.add(goraprawo);
                 goraprawo.setOpaque(false);
                 goraprawo.setLayout(new BorderLayout());
                 goraprawo.add(zamknij,BorderLayout.EAST);
-                zamknij.addActionListener(e -> {czas.zamknij();new Menu();});
+                zamknij.addActionListener(e -> {
+                        czas.apk=false;
+                        pulpit.dispose();
+                        mapka.dispose();
+                        new Menu();
+                });
 
                 przyciski();
         }
@@ -136,8 +142,10 @@ public class Gra extends Okno {
                 });
 
                 zatwierdz.addActionListener(e -> {
-                        czas.zamknij();
-                        new Wynik(t, odliczanie.getText(),String.valueOf(gra),mapka.longp,mapka.latp,X,Y,wynik);
+                        pulpit.dispose();
+                        mapka.pulpit.dispose();
+                        czas.apk=false;
+                        new Wynik(t, odliczanie.getText(),gra,mapka.longp,mapka.latp,X,Y,wynik,mapka.klikniete);
 
                 });
 

@@ -59,12 +59,11 @@ abstract class Okno extends JFrame{
 
 class Czas{
     int min,sek;
-    JFrame pulpit,pulpit2;
     String m,s,tek;
+    Gra gra;
     boolean apk=true;
-    Czas(int t, JLabel tekst, JFrame Pulpit,JFrame Pulpit2) {
-        pulpit=Pulpit;
-        pulpit2=Pulpit2;
+    Czas(int t, JLabel tekst,Gra Gra) {
+        gra=Gra;
         min = t/60;
         if (t==60){sek=0;}
         else{sek=30;}
@@ -88,7 +87,8 @@ class Czas{
 
 
                  }
-                 zamknij();
+                 if(apk){zamknij();}
+
              }catch (InterruptedException e) {
                  Thread.currentThread().interrupt();
              }
@@ -97,9 +97,11 @@ class Czas{
     }
     void zamknij()
     {
-        apk=false;
-        pulpit.dispose();
-        pulpit2.dispose();
+        //apk=false;
+
+        new Wynik(gra.t, gra.odliczanie.getText(),gra.gra,gra.mapka.longp,gra.mapka.latp,gra.X,gra.Y,gra.wynik,gra.mapka.klikniete);
+        gra.pulpit.dispose();
+        gra.mapka.pulpit.dispose();
     }
 }
 

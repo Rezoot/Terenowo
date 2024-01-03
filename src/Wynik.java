@@ -3,7 +3,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class Wynik extends Okno{
-    String gra;
+    int gra;
     int punkty;
     int plus;
     Map mapka;
@@ -11,8 +11,10 @@ public class Wynik extends Okno{
     String czas;
     double x1,x2,y1,y2;
     int tryb;
+    Boolean klikniete;
     int[] tablica = new int[3];
-    Wynik(int Tryb, String Czas,String Gra,double X1,double Y1,double X2,double Y2,int Punkty) {
+    Wynik(int Tryb, String Czas,int Gra,double X1,double Y1,double X2,double Y2,int Punkty,Boolean Klikniete) {
+        klikniete=Klikniete;
         tryb=Tryb;
         punkty=Punkty;
         x1=X1;x2=X2;y1=Y1;y2=Y2;
@@ -88,10 +90,15 @@ public class Wynik extends Okno{
         wynik.setOpaque(false);
         gora.add(wynik);
 
+        if (klikniete){
+            tablica=punkty();
+            plus=tablica[2];
+            punkty+=plus;
 
-        tablica=punkty();
-        plus=tablica[2];
-        punkty+=plus;
+        }
+        else{
+            plus=0;
+        }
 
         JLabel odliczanie = new JLabel("wynik: "+punkty);
         odliczanie.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -235,7 +242,6 @@ public class Wynik extends Okno{
                    }
 
                } catch (InterruptedException e) {
-                   System.out.println("Ddddd");
                    throw new RuntimeException(e);
 
                }
@@ -248,7 +254,7 @@ public class Wynik extends Okno{
 
 
 
-//ddd
+
         JPanel plansza = new JPanel();
         plansza.setOpaque(false);
         plansza.setLayout(new BorderLayout());
@@ -262,7 +268,15 @@ public class Wynik extends Okno{
 
         plansza.add(dalej,BorderLayout.EAST);
 
-        //zamknij.addActionListener(e -> {pulpit.dispose();});
+        dalej.addActionListener(e -> {
+            pulpit.dispose();
+            if(gra==3){
+                new Menu();
+            }
+            else {
+                new Gra(tryb,gra+1,punkty);
+            }
+        });
 
 
 

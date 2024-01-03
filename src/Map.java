@@ -23,6 +23,7 @@ public class Map extends JFrame {
     JXMapViewer mapa;
     double odleglosc;
     JPanel panel;
+    Boolean klikniete=false;
     double srednialong,srednialat;
     public Map(int szer, int wys) {
         pulpit.setBounds(szer - 500, wys - 460, 500, 400);
@@ -34,7 +35,7 @@ public class Map extends JFrame {
 
                  y1 = e.getY();
                  x1 = e.getX();
-
+                klikniete=true;
                 Waypoint waypoint1 = new DefaultWaypoint(mapa.convertPointToGeoPosition(new Point(x1, y1)));
                 longp = waypoint1.getPosition().getLongitude();
                 latp = waypoint1.getPosition().getLatitude();
@@ -57,8 +58,7 @@ public class Map extends JFrame {
         srednialat=(latp+latc)/2;
         odleglosc = policz();
     }
-    void wstaw()
-    {
+    void wstaw() {
         panel.setLayout(new BorderLayout());
 
         mapa = new JXMapViewer();
