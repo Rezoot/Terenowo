@@ -248,7 +248,7 @@ public class Wynik extends Okno{
 
 
 
-
+//ddd
         JPanel plansza = new JPanel();
         plansza.setOpaque(false);
         plansza.setLayout(new BorderLayout());
