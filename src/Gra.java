@@ -16,8 +16,9 @@ public class Gra extends Okno {
         Czas czas;
         int wynik;
         int gra;
-
-        Gra(int time, int Gra, int Wynik){
+        int[] zagrane;
+        Gra(int time, int Gra, int Wynik, int[] Zagrane){
+                zagrane=Zagrane;
                 wynik=Wynik;
                 gra=Gra;
                 t=time;
@@ -145,7 +146,7 @@ public class Gra extends Okno {
                         pulpit.dispose();
                         mapka.pulpit.dispose();
                         czas.apk=false;
-                        new Wynik(t, odliczanie.getText(),gra,mapka.longp,mapka.latp,X,Y,wynik,mapka.klikniete);
+                        new Wynik(t, odliczanie.getText(),gra,mapka.longp,mapka.latp,X,Y,wynik,mapka.klikniete,zagrane);
 
                 });
 
@@ -154,7 +155,20 @@ public class Gra extends Okno {
                 map = new ImageIcon("map.png");
                 potwierdz = new ImageIcon("zatwierdz.png");
 
-                Zdjecie zdjecie = new Zdjecie();
+                Zdjecie zdjecie = new Zdjecie(zagrane);
+                int i=0;
+                for (int f:zagrane)
+                {
+                        if (f==0)
+                        {
+                                zagrane[i]=zdjecie.wyl;
+                                break;
+                        }
+                        i++;
+                }
+
+
+
                 zdj=zdjecie.zdjecie;
                 X=zdjecie.x;
                 Y=zdjecie.y;

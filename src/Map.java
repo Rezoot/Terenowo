@@ -74,25 +74,20 @@ public class Map extends JFrame {
 
         Waypoint waypoint1 = new DefaultWaypoint(new GeoPosition(latp,longp));
         Waypoint waypoint2 = new DefaultWaypoint(new GeoPosition(latc,longc));
-
-
-
-
         Set<Waypoint> waypointSet = new HashSet<>();
         waypointSet.add(waypoint1);
         waypointSet.add(waypoint2);
-
 
         WaypointPainter<Waypoint> waypointPainter = new WaypointPainter<>();
         waypointPainter.setWaypoints(waypointSet);
         mapa.setOverlayPainter(waypointPainter);
 
+
+
         panel.add(mapa,BorderLayout.CENTER);
 
     }
-    void widoczny(boolean bool) {
-        pulpit.setVisible(bool);
-    }
+    void widoczny(boolean bool) {pulpit.setVisible(bool);}
 
     void mapa() {
 

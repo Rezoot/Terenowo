@@ -13,15 +13,17 @@ public class Wynik extends Okno{
     int tryb;
     Boolean klikniete;
     int[] tablica = new int[3];
-    Wynik(int Tryb, String Czas,int Gra,double X1,double Y1,double X2,double Y2,int Punkty,Boolean Klikniete) {
+    int[] zagrane;
+    Wynik(int Tryb, String Czas,int Gra,double X1,double Y1,double X2,double Y2,int Punkty,Boolean Klikniete,int[] Zagrane) {
+        zagrane = Zagrane;
         klikniete=Klikniete;
         tryb=Tryb;
         punkty=Punkty;
         x1=X1;x2=X2;y1=Y1;y2=Y2;
         gra=Gra;
         czas=Czas;
-        mapka = new Map(x1,x2,y1,y2);
-
+        if(Klikniete){mapka = new Map(x1, x2, y1, y2);}
+        else{mapka = new Map(x2,x2,y2,y2);}
         pulpit.setLayout(new BoxLayout(pulpit.getContentPane(),BoxLayout.Y_AXIS));
 
         gora();
@@ -72,7 +74,7 @@ public class Wynik extends Okno{
         gora.add(plansza);
         plansza.add(zamknij,BorderLayout.EAST);
 
-        zamknij.addActionListener(e -> pulpit.dispose());
+        zamknij.addActionListener(e -> {pulpit.dispose();new Menu();});
 
 
 
@@ -183,24 +185,23 @@ public class Wynik extends Okno{
         wynik.setOpaque(false);
         dol2.add(odl);
 
-        String napis;
-        if(mapka.odleglosc>2500)
-        {
-             napis = "odleglosc: " + mapka.odleglosc/1000 + "km";
+        if(klikniete) {
+            String napis;
+            if (mapka.odleglosc > 2500) {
+                napis = "odleglosc: " + mapka.odleglosc / 1000 + "km";
 
-        }
-        else
-        {
-             napis = "odleglosc: " + (int)mapka.odleglosc + "m";
-        }
+            } else {
+                napis = "odleglosc: " + (int) mapka.odleglosc + "m";
+            }
 
-        JLabel km = new JLabel(napis);
-        km.setFont(new Font("Arial", Font.PLAIN, 30));
-        km.setOpaque(true);
-        km.setBackground(Color.BLACK);
-        km.setForeground(Color.WHITE);
-        km.setBorder(new LineBorder(Color.BLACK, 2));
-        odl.add(km,BorderLayout.CENTER);
+            JLabel km = new JLabel(napis);
+            km.setFont(new Font("Arial", Font.PLAIN, 30));
+            km.setOpaque(true);
+            km.setBackground(Color.BLACK);
+            km.setForeground(Color.WHITE);
+            km.setBorder(new LineBorder(Color.BLACK, 2));
+            odl.add(km, BorderLayout.CENTER);
+        }
     }
 
     void dalej(){
@@ -274,7 +275,7 @@ public class Wynik extends Okno{
                 new Menu();
             }
             else {
-                new Gra(tryb,gra+1,punkty);
+                new Gra(tryb,gra+1,punkty,zagrane);
             }
         });
 

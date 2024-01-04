@@ -99,7 +99,7 @@ class Czas{
     {
         //apk=false;
 
-        new Wynik(gra.t, gra.odliczanie.getText(),gra.gra,gra.mapka.longp,gra.mapka.latp,gra.X,gra.Y,gra.wynik,gra.mapka.klikniete);
+        new Wynik(gra.t, gra.odliczanie.getText(),gra.gra,gra.mapka.longp,gra.mapka.latp,gra.X,gra.Y,gra.wynik,gra.mapka.klikniete,gra.zagrane);
         gra.pulpit.dispose();
         gra.mapka.pulpit.dispose();
     }
@@ -110,12 +110,14 @@ class Zdjecie extends JFrame {
     double x, y;
     String a = "", b = "", c = "";
     int tryb = 0;
-    String wylosowane;
+    int wyl;
+    int[] zagrane;
 
-    Zdjecie() {
-
+    Zdjecie(int[] Zagrane) {
+        zagrane=Zagrane;
         try {
-            wylosowane = losuj();
+            wyl = losuj();
+            String wylosowane = String.valueOf(wyl);
 
             String filename = "plansza/" + wylosowane + ".jpg";
             zdjecie = new ImageIcon(filename);
@@ -170,19 +172,35 @@ class Zdjecie extends JFrame {
         }
     }
 
-    String losuj() {
+    int losuj() {
 
 
         int dolnyZakres = 1;
         int gornyZakres = ilosc_plikow();
-
+        int wylosowanaLiczba = 0;
         // Tworzymy obiekt klasy Random
+
         Random losowanie = new Random();
-
+        boolean warunek = true;
+        boolean warunek2 = true;
         // Losujemy liczbę z podanego przedziału
-        int wylosowanaLiczba = losowanie.nextInt(gornyZakres - dolnyZakres + 1) + dolnyZakres;
+        while(warunek){
+        wylosowanaLiczba = losowanie.nextInt(gornyZakres - dolnyZakres + 1) + dolnyZakres;
 
-        return String.valueOf(wylosowanaLiczba);
+        for(int i : zagrane)
+        {
+            if(i==wylosowanaLiczba)
+            {
+                warunek2=false;
+                break;
+            }
+        }
+
+        if (warunek2) {warunek=false;}
+
+
+        }
+        return wylosowanaLiczba;
     }
 
 
