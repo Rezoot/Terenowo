@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
 
 
-        //new Menu();
+        new Menu();
         //new Gra(90,1,0,new int[3]);
         //Map a = new Map(400,400);
 

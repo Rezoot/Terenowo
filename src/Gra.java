@@ -156,16 +156,7 @@ public class Gra extends Okno {
                 potwierdz = new ImageIcon("zatwierdz.png");
 
                 Zdjecie zdjecie = new Zdjecie(zagrane);
-                int i=0;
-                for (int f:zagrane)
-                {
-                        if (f==0)
-                        {
-                                zagrane[i]=zdjecie.wyl;
-                                break;
-                        }
-                        i++;
-                }
+                zagrane[gra-1]=zdjecie.wyl;
 
 
 

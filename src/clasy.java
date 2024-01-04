@@ -115,24 +115,27 @@ class Zdjecie extends JFrame {
 
     Zdjecie(int[] Zagrane) {
         zagrane=Zagrane;
+        wyl = losuj();
         try {
-            wyl = losuj();
             String wylosowane = String.valueOf(wyl);
 
             String filename = "plansza/" + wylosowane + ".jpg";
             zdjecie = new ImageIcon(filename);
-            Image image = zdjecie.getImage();
-            zdjecie = new ImageIcon(image.getScaledInstance(zdjecie.getIconWidth() / 2, zdjecie.getIconHeight() / 2, Image.SCALE_FAST));
+
+            if(zdjecie.getIconHeight()>2000){
+                Image image = zdjecie.getImage();
+                zdjecie = new ImageIcon(image.getScaledInstance(zdjecie.getIconWidth() / 2, zdjecie.getIconHeight() / 2, Image.SCALE_FAST));
+            }
+
 
             try (BufferedReader br = new BufferedReader(new FileReader("lokalizacja"))) {
                 String linia;
-
                 while ((linia = br.readLine()) != null) {
-
 
                     for (int i = 0; i < linia.length(); i++) {
 
-                        if (linia.charAt(i) == ';') {
+                        if (linia.charAt(i) == ',') {
+
 
                             if (tryb == 0 && !(c.equals(wylosowane))) {
 
@@ -168,7 +171,7 @@ class Zdjecie extends JFrame {
                 e.printStackTrace();
             }
         } catch (Exception e) {
-            System.out.println("nie dziala");
+            e.printStackTrace();
         }
     }
 
@@ -185,19 +188,21 @@ class Zdjecie extends JFrame {
         boolean warunek2 = true;
         // Losujemy liczbę z podanego przedziału
         while(warunek){
+
         wylosowanaLiczba = losowanie.nextInt(gornyZakres - dolnyZakres + 1) + dolnyZakres;
 
         for(int i : zagrane)
         {
+            System.out.println(i);
             if(i==wylosowanaLiczba)
             {
                 warunek2=false;
-                break;
+
             }
         }
 
         if (warunek2) {warunek=false;}
-
+        warunek2=true;
 
         }
         return wylosowanaLiczba;
