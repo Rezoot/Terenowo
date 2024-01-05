@@ -7,7 +7,7 @@ public class Wynik extends Okno{
     int punkty;
     int plus;
     Map mapka;
-    int tekst=50,mapa=400;
+    private final int tekst=50,mapa=400;
     String czas;
     double x1,x2,y1,y2;
     int tryb;
