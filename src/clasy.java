@@ -10,7 +10,7 @@ import java.util.Random;
 
 abstract class Okno extends JFrame{
     JFrame pulpit;
-    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int szerokoscokna=screenSize.width,wysokoscokna=screenSize.height-45;
     JButton zamknij = new JButton(){
         @Override
@@ -58,9 +58,9 @@ abstract class Okno extends JFrame{
 
 
 class Czas{
-    int min,sek;
-    String m,s,tek;
-    Gra gra;
+    private int min,sek;
+    private String m,s,tek;
+    private final Gra gra;
     boolean apk=true;
     Czas(int t, JLabel tekst,Gra Gra) {
         gra=Gra;
@@ -108,10 +108,8 @@ class Czas{
 class Zdjecie extends JFrame {
     ImageIcon zdjecie;
     double x, y;
-    String a = "", b = "", c = "";
-    int tryb = 0;
     int wyl;
-    int[] zagrane;
+    private final int[] zagrane;
 
     Zdjecie(int[] Zagrane) {
         zagrane=Zagrane;
@@ -122,7 +120,7 @@ class Zdjecie extends JFrame {
             String filename = "plansza/" + wylosowane + ".jpg";
             zdjecie = new ImageIcon(filename);
 
-            if(zdjecie.getIconHeight()>2000){
+            if(zdjecie.getIconHeight()>2100){
                 Image image = zdjecie.getImage();
                 zdjecie = new ImageIcon(image.getScaledInstance(zdjecie.getIconWidth() / 2, zdjecie.getIconHeight() / 2, Image.SCALE_FAST));
             }
@@ -131,6 +129,9 @@ class Zdjecie extends JFrame {
             try (BufferedReader br = new BufferedReader(new FileReader("lokalizacja"))) {
                 String linia;
                 while ((linia = br.readLine()) != null) {
+
+                    String a = "",c = "",b = "";
+                    int tryb = 0;
 
                     for (int i = 0; i < linia.length(); i++) {
 
@@ -160,10 +161,7 @@ class Zdjecie extends JFrame {
 
                     }
 
-                    c = "";
-                    a = "";
-                    b = "";
-                    tryb = 0;
+
 
 
                 }
@@ -193,11 +191,11 @@ class Zdjecie extends JFrame {
 
         for(int i : zagrane)
         {
-            System.out.println(i);
-            if(i==wylosowanaLiczba)
-            {
-                warunek2=false;
 
+            if (i == wylosowanaLiczba) {
+                warunek2 = false;
+
+                break;
             }
         }
 

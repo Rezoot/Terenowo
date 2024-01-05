@@ -3,28 +3,29 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class Wynik extends Okno{
-    int gra;
-    int punkty;
-    int plus;
-    Map mapka;
+    private final int gra;
+    private int punkty;
+    private int plus;
+    private final Color kolortla = new Color(36, 67, 103, 255);
+    private final Map mapka;
     private final int tekst=50,mapa=400;
-    String czas;
-    double x1,x2,y1,y2;
-    int tryb;
-    Boolean klikniete;
-    int[] tablica = new int[3];
+    private final String czas;
+    private final int tryb;
+    private final Boolean klikniete;
+    private int[] tablica = new int[3];
     int[] zagrane;
     Wynik(int Tryb, String Czas,int Gra,double X1,double Y1,double X2,double Y2,int Punkty,Boolean Klikniete,int[] Zagrane) {
         zagrane = Zagrane;
         klikniete=Klikniete;
         tryb=Tryb;
         punkty=Punkty;
-        x1=X1;x2=X2;y1=Y1;y2=Y2;
         gra=Gra;
         czas=Czas;
-        if(Klikniete){mapka = new Map(x1, x2, y1, y2);}
-        else{mapka = new Map(x2,x2,y2,y2);}
+        if(Klikniete){mapka = new Map(X1, X2, Y1, Y2);}
+        else{mapka = new Map(X2, X2, Y2, Y2);}
         pulpit.setLayout(new BoxLayout(pulpit.getContentPane(),BoxLayout.Y_AXIS));
+
+
 
         gora();
         gora2();
@@ -36,10 +37,10 @@ public class Wynik extends Okno{
         dalej();
 
         JPanel gora = new JPanel();
+        gora.setBackground(kolortla);
         pulpit.add(gora);
-        gora.setOpaque(false);
         gora.setPreferredSize(new Dimension(szerokoscokna,wysokoscokna-mapa-5*tekst));
-
+        gora.setBackground(kolortla);
 
         pulpit.setVisible(true);
 
@@ -47,8 +48,9 @@ public class Wynik extends Okno{
     void gora() {
         JPanel gora = new JPanel();
         pulpit.add(gora);
+        gora.setBackground(kolortla);
         gora.setLayout(new OverlayLayout(gora));
-        gora.setOpaque(false);
+        //gora.setOpaque(false);
         gora.setPreferredSize(new Dimension(szerokoscokna,tekst));
 
         JPanel wynik = new JPanel();
@@ -82,10 +84,9 @@ public class Wynik extends Okno{
     void gora2() {
 
         JPanel gora = new JPanel();
+        gora.setBackground(kolortla);
         pulpit.add(gora);
         gora.setLayout(new OverlayLayout(gora));
-        gora.setOpaque(false);
-        gora.setBackground(Color.blue);
         gora.setPreferredSize(new Dimension(szerokoscokna,tekst));
 
         JPanel wynik = new JPanel();
@@ -150,7 +151,7 @@ public class Wynik extends Okno{
 
         mapka.panel=srodek;
         mapka.wstaw();
-        pan.setBackground(Color.PINK);
+        pan.setBackground(kolortla);
         pulpit.add(pan);
 
 
@@ -159,8 +160,8 @@ public class Wynik extends Okno{
 
         JPanel dol = new JPanel();
         pulpit.add(dol);
-        dol.setOpaque(false);
-        dol.setBackground(Color.blue);
+
+        dol.setBackground(kolortla);
         dol.setPreferredSize(new Dimension(szerokoscokna,tekst));
 
         JPanel wynik = new JPanel();
@@ -177,12 +178,13 @@ public class Wynik extends Okno{
 
         JPanel dol2 = new JPanel();
         pulpit.add(dol2);
-        dol2.setOpaque(false);
-        dol2.setBackground(Color.blue);
+        dol2.setBackground(kolortla);
+        //dol2.setOpaque(false);
+        dol2.setBackground(kolortla);
         dol2.setPreferredSize(new Dimension(szerokoscokna,tekst));
 
         JPanel odl = new JPanel();
-        wynik.setOpaque(false);
+        odl.setOpaque(false);
         dol2.add(odl);
 
         if(klikniete) {
@@ -207,8 +209,8 @@ public class Wynik extends Okno{
     void dalej(){
         JPanel gora = new JPanel();
         pulpit.add(gora);
+        gora.setBackground(kolortla);
         gora.setLayout(new OverlayLayout(gora));
-        gora.setOpaque(false);
         gora.setPreferredSize(new Dimension(szerokoscokna,2*tekst));
 
 
@@ -265,7 +267,11 @@ public class Wynik extends Okno{
         gora.add(plansza);
 
         JButton dalej =  new JButton();
-        dalej.setPreferredSize(new Dimension(70,50));
+        dalej.setPreferredSize(new Dimension(80,50));
+        dalej.setIcon(new ImageIcon("dalej.png"));
+        dalej.setOpaque(false);
+        dalej.setBackground(new Color(0,0,0,0));
+        dalej.setBorder(null);
 
         plansza.add(dalej,BorderLayout.EAST);
 

@@ -18,13 +18,13 @@ import java.util.Set;
 
 public class Map extends JFrame {
     JFrame pulpit = new JFrame();
-    int x1,y1;
+    private int x1,y1;
     double latp,latc,longp,longc;
-    JXMapViewer mapa;
-    double odleglosc;
+    private JXMapViewer mapa;
+    double odleglosc=0;
     JPanel panel;
     Boolean klikniete=false;
-    double srednialong,srednialat;
+    private double srednialong,srednialat;
     public Map(int szer, int wys) {
         pulpit.setBounds(szer - 500, wys - 460, 500, 400);
 
@@ -65,7 +65,10 @@ public class Map extends JFrame {
         mapa.setTileFactory(new DefaultTileFactory(new OSMTileFactoryInfo("", "https://tile.openstreetmap.org"))); // Parametry kafelka
 
         mapa.setAddressLocation(new GeoPosition(srednialat, srednialong));
-        mapa.setZoom(10);
+        if (odleglosc<500){mapa.setZoom(4);}
+        else if (odleglosc<2000){mapa.setZoom(6);}
+        else if (odleglosc<5000){mapa.setZoom(7);}
+        else{mapa.setZoom(10);}
         MouseInputListener a = new PanMouseInputListener(mapa);
         panel.addMouseListener(a);
         panel.addMouseMotionListener(a);

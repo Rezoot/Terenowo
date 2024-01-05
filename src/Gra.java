@@ -5,15 +5,16 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Gra extends Okno {
-        boolean mouse,mapkakliknieta=false;
-        ImageIcon zdj, map, potwierdz;
-        int x ,y ,t;
+        private boolean mouse,mapkakliknieta=false;
+        private ImageIcon zdj, map, potwierdz;
+        private int x,y;
+        final int t;
         double X,Y;
         Map mapka = new Map(szerokoscokna,wysokoscokna);
-        JLabel glowne_zjecie,glowne_zjecieprzed,glowne_zjeciepo;
+        private JLabel glowne_zjecie,glowne_zjecieprzed,glowne_zjeciepo;
         JLabel odliczanie;
-        Dimension size;
-        Czas czas;
+        private Dimension size;
+        private Czas czas;
         int wynik;
         int gra;
         int[] zagrane;
@@ -34,9 +35,6 @@ public class Gra extends Okno {
         void glowne() {
 
                 fotka();
-                x=-zdj.getIconWidth()/2;
-                y=-zdj.getIconHeight()/2;
-
 
                 labelki();
 
@@ -51,6 +49,15 @@ public class Gra extends Okno {
                 glowne_zjeciepo.setIcon(zdj);
 
                 size = glowne_zjecie.getPreferredSize(); //Gets the size of the image
+                x=-zdj.getIconWidth()/2;
+                y=-zdj.getIconHeight()/2;
+
+                if (y<=-size.height+wysokoscokna) {
+                        y=-size.height+wysokoscokna;
+
+                }
+
+
                 glowne_zjecie.setBounds(x,y,size.width,size.height);
                 glowne_zjecieprzed.setBounds(x+size.width,y,size.width,size.height);
                 glowne_zjeciepo.setBounds(x-size.width,y,size.width,size.height);
@@ -211,10 +218,12 @@ public class Gra extends Okno {
                         }
                 });
 
+                /*
                 pulpit.addMouseWheelListener(e -> {
                         int notches = e.getWheelRotation();
                         System.out.println(notches);
                 });
+                */
 
         }
 }

@@ -5,10 +5,10 @@ import java.awt.*;
 public class Menu extends Okno{
 
 
-    String color="#f5d0ef",color_napis="#5c555b";
+    private final String color="#f5d0ef",color_napis="#5c555b";
     JPanel fasolka;
-    JLabel tek;
-    int time=90;
+    private JLabel tek;
+    private int time=90;
     Menu()
     {
 
