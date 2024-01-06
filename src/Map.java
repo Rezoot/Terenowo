@@ -15,16 +15,48 @@ import java.awt.event.MouseEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-
+/**
+ * tworzy mape
+ */
 public class Map extends JFrame {
+    /**
+     * JFrame
+     */
     JFrame pulpit = new JFrame();
-    private int x1,y1;
+    /**
+     * zaznaczenie na mappie
+     */
+     int x1,y1;
+    /**
+     * geolokacja
+     */
     double latp,latc,longp,longc;
-    private JXMapViewer mapa;
+    /**
+     * mapa
+     */
+     JXMapViewer mapa;
+    /**
+     * odleglosc
+     */
     double odleglosc=0;
+    /**
+     * miejsce na mapke
+     */
     JPanel panel;
+    /**
+     * sprawdza czy zostalo zaznaczone na mapie
+     */
     Boolean klikniete=false;
-    private double srednialong,srednialat;
+    /**
+     * srodek zaznaczenia
+     */
+    double srednialong,srednialat;
+
+    /**
+     * konstruktor mapy
+     * @param szer szerokosc okna glownego
+     * @param wys wysokosc okna glownego
+     */
     public Map(int szer, int wys) {
         pulpit.setBounds(szer - 500, wys - 460, 500, 400);
 
@@ -39,7 +71,6 @@ public class Map extends JFrame {
                 Waypoint waypoint1 = new DefaultWaypoint(mapa.convertPointToGeoPosition(new Point(x1, y1)));
                 longp = waypoint1.getPosition().getLongitude();
                 latp = waypoint1.getPosition().getLatitude();
-                //policz(waypoint1.getPosition().getLatitude(),waypoint2.getPosition().getLatitude(),waypoint1.getPosition().getLongitude(),waypoint2.getPosition().getLongitude());
 
                 Set<Waypoint> waypointSet = new HashSet<>();
                 waypointSet.add(waypoint1);
@@ -52,12 +83,23 @@ public class Map extends JFrame {
         });
     }
 
+    /**
+     * zaznaczone punkty
+     * @param X1 x1
+     * @param X2 x2
+     * @param Y1 y1
+     * @param Y2 y2
+     */
     public Map(double X1, double X2,double Y1,double Y2) {
         longp=X1;longc=X2;latp=Y1;latc=Y2;
         srednialong=(longp+longc)/2;
         srednialat=(latp+latc)/2;
         odleglosc = policz();
     }
+
+    /**
+     * wstawia mape
+     */
     void wstaw() {
         panel.setLayout(new BorderLayout());
 
@@ -86,13 +128,17 @@ public class Map extends JFrame {
         mapa.setOverlayPainter(waypointPainter);
 
 
-
         panel.add(mapa,BorderLayout.CENTER);
 
     }
+
+    /**
+     *
+     * @param bool pokazuje i chowa mape
+     */
     void widoczny(boolean bool) {pulpit.setVisible(bool);}
 
-    void mapa() {
+    private void mapa() {
 
         pulpit.setAlwaysOnTop(true);
 
@@ -111,7 +157,7 @@ public class Map extends JFrame {
 
     }
 
-    double policz() {
+    private double policz() {
         int req = 6378137;
         double f = 1 / 298.257223563;
         double rpol = 6356752.314245;

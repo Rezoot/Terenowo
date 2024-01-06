@@ -9,9 +9,18 @@ import java.util.Random;
 
 
 abstract class Okno extends JFrame{
+    /**
+     *
+     */
     JFrame pulpit;
     private final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    /**
+     *
+     */
     int szerokoscokna=screenSize.width,wysokoscokna=screenSize.height-45;
+    /**
+     * generacja przycisku zamykajacego
+     */
     JButton zamknij = new JButton(){
         @Override
         protected void paintComponent(Graphics g) {
@@ -28,7 +37,9 @@ abstract class Okno extends JFrame{
         }
     };
 
-
+    /**
+     * tworzy okno
+     */
     Okno(){
     if(szerokoscokna>1280){szerokoscokna=1280;}
     if(wysokoscokna>1080){wysokoscokna=1080;}
@@ -56,12 +67,24 @@ abstract class Okno extends JFrame{
 
 }
 
-
+/**
+ * tworzy odliczanie
+ */
 class Czas{
     private int min,sek;
     private String m,s,tek;
     private final Gra gra;
+    /**
+     * warunek czy gra dalej jest grana
+     */
     boolean apk=true;
+
+    /**
+     *
+     * @param t czas poczatkowy
+     * @param tekst Jlabel gdzie zostanie wpisany czas
+     * @param Gra ktora gra z kolejnosci
+     */
     Czas(int t, JLabel tekst,Gra Gra) {
         gra=Gra;
         min = t/60;
@@ -95,7 +118,7 @@ class Czas{
 
          }).start();
     }
-    void zamknij()
+    private void zamknij()
     {
         //apk=false;
 
@@ -105,12 +128,28 @@ class Czas{
     }
 }
 
+/**
+ * tworzy i losuje zdjecie
+ */
 class Zdjecie extends JFrame {
+    /**
+     *
+     */
     ImageIcon zdjecie;
+    /**
+     * geo lokacja zdjecia
+     */
     double x, y;
+    /**
+     * wylosowana liczba
+     */
     int wyl;
     private final int[] zagrane;
 
+    /**
+     *
+     * @param Zagrane przechowuje ktore zdjecia zostaly juz zagrane
+     */
     Zdjecie(int[] Zagrane) {
         zagrane=Zagrane;
         wyl = losuj();
@@ -173,7 +212,8 @@ class Zdjecie extends JFrame {
         }
     }
 
-    int losuj() {
+
+    private int losuj() {
 
 
         int dolnyZakres = 1;
@@ -207,7 +247,7 @@ class Zdjecie extends JFrame {
     }
 
 
-    int ilosc_plikow() {
+    private int ilosc_plikow() {
         int ile=0;
         File folder = new File("plansza");
         if (folder.isDirectory())

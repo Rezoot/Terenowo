@@ -2,13 +2,31 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ *Menu
+ */
 public class Menu extends Okno{
 
-
+    /**
+     * kolory
+     */
     private final String color="#f5d0ef",color_napis="#5c555b";
+    /**
+     * wyglad
+     */
     JPanel fasolka;
+    /**
+     *miejsce na tekst
+     */
     private JLabel tek;
+    /**
+     * pcczatkowy czas
+     */
     private int time=90;
+
+    /**
+     *
+     */
     Menu()
     {
 
@@ -50,7 +68,7 @@ public class Menu extends Okno{
 
     }
 
-    void pierwszy_zamkniecia()
+    private void pierwszy_zamkniecia()
     {
         JPanel pierwszy = new JPanel();
         fasolka.add(pierwszy);
@@ -73,7 +91,7 @@ public class Menu extends Okno{
 
 
     }
-    void drugi_glowny()
+    private void drugi_glowny()
     {
 
         JPanel drugi = new JPanel();
@@ -128,7 +146,7 @@ public class Menu extends Okno{
         graj.addActionListener(e -> {new Gra(time,1,0,new int[3]);pulpit.dispose();});
 
     }
-    JPanel jradiobutony(){
+    private JPanel jradiobutony(){
 
         JPanel wyb = new JPanel();
         wyb.setOpaque(false);

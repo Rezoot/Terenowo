@@ -4,21 +4,72 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * glowne okno z gra
+ */
 public class Gra extends Okno {
+        /**
+         * sprawdza klikniecie
+         */
         private boolean mouse,mapkakliknieta=false;
+        /**
+         * ikonki
+         */
         private ImageIcon zdj, map, potwierdz;
+        /**
+         * lokacja myszki
+         */
         private int x,y;
+        /**
+         * czas poczatkowy
+         */
         final int t;
+        /**
+         * geolokacja zdjecia
+         */
         double X,Y;
+        /**
+         * tworzy mape
+         */
         Map mapka = new Map(szerokoscokna,wysokoscokna);
+        /**
+         * zdjecia lokacji. glowne i boczne
+         */
         private JLabel glowne_zjecie,glowne_zjecieprzed,glowne_zjeciepo;
+        /**
+         * label z odliczaniem
+         */
         JLabel odliczanie;
+        /**
+         * wielkosc okna
+         */
         private Dimension size;
+        /**
+         * czas
+         */
         private Czas czas;
+        /**
+         * aktualny wynik
+         */
         int wynik;
+        /**
+         * zawiera aktualnie grana gre
+         */
         int gra;
+        /**
+         * przechowuje zagrane gry
+         */
         int[] zagrane;
+
+        /**
+         *
+         * @param time poczatkowy czas
+         * @param Gra rozgrywana gra aktualnie
+         * @param Wynik aktualny wynik
+         * @param Zagrane przechowuje zagrane gry
+         */
         Gra(int time, int Gra, int Wynik, int[] Zagrane){
+
                 zagrane=Zagrane;
                 wynik=Wynik;
                 gra=Gra;
@@ -32,7 +83,7 @@ public class Gra extends Okno {
                 pulpit.setVisible(true);
         }
 
-        void glowne() {
+        private void glowne() {
 
                 fotka();
 
@@ -73,7 +124,7 @@ public class Gra extends Okno {
 
         }
 
-        void labelki(){
+        private void labelki(){
 
                 JPanel gora = new JPanel();
                 gora.setBounds(0,0,szerokoscokna,50);
@@ -106,7 +157,7 @@ public class Gra extends Okno {
 
                 przyciski();
         }
-        void przyciski(){
+        private void przyciski(){
 
                 JPanel cale = new JPanel();
                 cale.setBounds(0,0,szerokoscokna,wysokoscokna);
@@ -158,7 +209,7 @@ public class Gra extends Okno {
                 });
 
         }
-        void fotka(){
+        private void fotka(){
                 map = new ImageIcon("map.png");
                 potwierdz = new ImageIcon("zatwierdz.png");
 
@@ -173,7 +224,7 @@ public class Gra extends Okno {
 
         }
 
-        void przesuwanie() {
+        private void przesuwanie() {
                 pulpit.addMouseListener(new MouseAdapter(){
                         @Override
                         public void mousePressed(MouseEvent e) {

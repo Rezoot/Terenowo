@@ -2,18 +2,68 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 
+/**
+ * ukazuje wynik
+ */
 public class Wynik extends Okno{
+    /**
+     * aktualna gra
+     */
     private final int gra;
+    /**
+     * aktualny wynik
+     */
     private int punkty;
+    /**
+     * punkty ktore dostanie sie za runde
+     */
     private int plus;
+    /**
+     *kolor tla
+     */
     private final Color kolortla = new Color(36, 67, 103, 255);
+    /**
+     * mapa
+     */
     private final Map mapka;
+    /**
+     * rozmiary Jpaneli
+     */
     private final int tekst=50,mapa=400;
+    /**
+     * wyswietla czas ktory zostal
+     */
     private final String czas;
+    /**
+     * poczatkowy czas
+     */
     private final int tryb;
+    /**
+     * czy mapka zostala kliknieta
+     */
     private final Boolean klikniete;
+    /**
+     * plansze ktore zostaly zagrane
+     */
     private int[] tablica = new int[3];
+    /**
+     * zawiera wczesniej grane plansze
+     */
     int[] zagrane;
+
+    /**
+     *
+     * @param Tryb poczatkowy czas
+     * @param Czas ile czasu zostalo
+     * @param Gra ktora gra zostala rozzegrana
+     * @param X1 geolokacja
+     * @param Y1 geolokacja
+     * @param X2 geolokacja
+     * @param Y2 geolokacja
+     * @param Punkty wynik z poprzednich zgadniec
+     * @param Klikniete czy mapa zostala kliknieta
+     * @param Zagrane zawiera wczesniej grane plansze
+     */
     Wynik(int Tryb, String Czas,int Gra,double X1,double Y1,double X2,double Y2,int Punkty,Boolean Klikniete,int[] Zagrane) {
         zagrane = Zagrane;
         klikniete=Klikniete;
@@ -45,7 +95,8 @@ public class Wynik extends Okno{
         pulpit.setVisible(true);
 
     }
-    void gora() {
+
+       private void gora() {
         JPanel gora = new JPanel();
         pulpit.add(gora);
         gora.setBackground(kolortla);
@@ -81,7 +132,7 @@ public class Wynik extends Okno{
 
 
     }
-    void gora2() {
+    private void gora2() {
 
         JPanel gora = new JPanel();
         gora.setBackground(kolortla);
@@ -129,7 +180,7 @@ public class Wynik extends Okno{
 
     }
 
-    void mappa(){
+    private void mappa(){
 
         JPanel pan = new JPanel();
         pan.setPreferredSize(new Dimension(szerokoscokna, mapa));
@@ -156,7 +207,7 @@ public class Wynik extends Okno{
 
 
     }
-    void dol(){
+    private void dol(){
 
         JPanel dol = new JPanel();
         pulpit.add(dol);
@@ -206,7 +257,7 @@ public class Wynik extends Okno{
         }
     }
 
-    void dalej(){
+    private void dalej(){
         JPanel gora = new JPanel();
         pulpit.add(gora);
         gora.setBackground(kolortla);
@@ -291,7 +342,7 @@ public class Wynik extends Okno{
     }
 
 
-    int[] punkty(){
+    private int[] punkty(){
         int punkty;
         int[] c = new int[3];
         int a = (int)Math.round(mapka.odleglosc);
