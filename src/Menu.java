@@ -68,6 +68,9 @@ public class Menu extends Okno{
 
     }
 
+    /**
+     * zamkniecie
+     */
     private void pierwszy_zamkniecia()
     {
         JPanel pierwszy = new JPanel();
@@ -91,6 +94,10 @@ public class Menu extends Okno{
 
 
     }
+
+    /**
+     * glowne cialo
+     */
     private void drugi_glowny()
     {
 
@@ -146,6 +153,11 @@ public class Menu extends Okno{
         graj.addActionListener(e -> {new Gra(time,1,0,new int[3]);pulpit.dispose();});
 
     }
+
+    /**
+     * klawisze wyboru czasu
+     * @return zwraca Jpanel
+     */
     private JPanel jradiobutony(){
 
         JPanel wyb = new JPanel();

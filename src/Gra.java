@@ -151,7 +151,8 @@ public class Gra extends Okno {
                 zamknij.addActionListener(e -> {
                         czas.apk=false;
                         pulpit.dispose();
-                        mapka.dispose();
+
+                        mapka.pulpit.dispose();
                         new Menu();
                 });
 

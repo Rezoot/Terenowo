@@ -100,7 +100,7 @@ public class Map extends JFrame {
     /**
      * wstawia mape
      */
-    void wstaw() {
+    public void wstaw() {
         panel.setLayout(new BorderLayout());
 
         mapa = new JXMapViewer();
@@ -136,7 +136,7 @@ public class Map extends JFrame {
      *
      * @param bool pokazuje i chowa mape
      */
-    void widoczny(boolean bool) {pulpit.setVisible(bool);}
+    public void widoczny(boolean bool) {pulpit.setVisible(bool);}
 
     private void mapa() {
 
